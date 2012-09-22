@@ -1,4 +1,4 @@
-package net.arogarth.android.littlearcher.activities;
+package net.arogarth.android.littlearcher.activities.workout;
 
 import java.util.ArrayList;
 
@@ -16,24 +16,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class ListWorkoutActivity extends Activity {
+public class ListActivity extends Activity {
 	
-	private class ListWorkoutAdapter extends BaseAdapter {
+	private class ListWorkoutAdapter extends BaseAdapter implements OnItemClickListener {
 
 		private final LayoutInflater mInflater;
 		private ArrayList<Workout> workouts = new ArrayList<Workout>();
 		
 		public ListWorkoutAdapter() {
-			mInflater = (LayoutInflater) ListWorkoutActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			mInflater = (LayoutInflater) ListActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			
 			workouts = WorkoutHandler.getInstance().loadList();
+			
 		}
 		
 		@Override
@@ -55,7 +60,7 @@ public class ListWorkoutActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Workout w = getItem(position);
 			
-			View v = mInflater.inflate(R.layout.list_workouts_item, parent, false);
+			View v = mInflater.inflate(R.layout.workout_list_item, parent, false);
 			((TextView) v.findViewById(R.id.workout_name)).setText(w.getName());
 			((TextView) v.findViewById(R.id.workout_date)).setText(w.getDate().toLocaleString());
 			
@@ -66,15 +71,26 @@ public class ListWorkoutActivity extends Activity {
 			
 			return v;
 		}
-		
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+			i.putExtra("workout_id", id);
+			startActivity(i);
+		}
+
 	}
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.list_workouts);
+        setContentView(R.layout.workout_list);
 
-        ((ListView) findViewById(R.id.list_workouts)).setAdapter(new ListWorkoutAdapter());
+        ListWorkoutAdapter a = new ListWorkoutAdapter();
+        ListView list = (ListView) findViewById(R.id.list_workouts);
+        
+        list.setAdapter(a);
+        list.setOnItemClickListener(a);
     }
 }

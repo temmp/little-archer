@@ -103,9 +103,13 @@ public class RingCountHandler extends DatabaseHandler {
         	row.setRing8(cursor.getInt(10));
         	row.setRing9(cursor.getInt(11));
         	row.setRing10(cursor.getInt(12));
+        	row.setX(cursor.getInt(13));
+        	row.setM(cursor.getInt(14));
         	
         	stack.add(row);
         } while( cursor.moveToNext() );
+        
+        db.close();
         
         return stack;
     }

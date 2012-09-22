@@ -10,6 +10,16 @@
     <net.arogarth.android.littlearcher.views.FitaRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:ring="M" />
+    
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="X" />
+    
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:ring="10" />
 
     <net.arogarth.android.littlearcher.views.FitaRow

@@ -23,6 +23,6 @@
     </style>
     
 	<style name="overview_row">
-	    <item name="android:width">13pt</item>
+	    <item name="android:width">15pt</item>
 	</style>
 </resources>

@@ -3,19 +3,19 @@ package net.arogarth.android.littlearcher.database.models;
 public class RingCount {
 	private Long id;
 	private Long workoutId;
-	private Integer round;
-	private Integer ring1;
-	private Integer ring2;
-	private Integer ring3;
-	private Integer ring4;
-	private Integer ring5;
-	private Integer ring6;
-	private Integer ring7;
-	private Integer ring8;
-	private Integer ring9;
-	private Integer ring10;
-	private Integer X;
-	private Integer M;
+	private Integer round = 0;
+	private Integer ring1 = 0;
+	private Integer ring2 = 0;
+	private Integer ring3 = 0;
+	private Integer ring4 = 0;
+	private Integer ring5 = 0;
+	private Integer ring6 = 0;
+	private Integer ring7 = 0;
+	private Integer ring8 = 0;
+	private Integer ring9 = 0;
+	private Integer ring10 = 0;
+	private Integer X = 0;
+	private Integer M = 0;
 	/**
 	 * @return the id
 	 */
@@ -208,5 +208,38 @@ public class RingCount {
 	 */
 	public void setM(Integer m) {
 		M = m;
+	}
+	
+	public Integer getPoints() {
+		Integer points = 0;
+		
+		points += this.getX() * 10;
+		points += this.getRing10() * 10;
+		points += this.getRing9() * 9;
+		points += this.getRing8() * 8;
+		points += this.getRing7() * 7;
+		points += this.getRing6() * 6;
+		points += this.getRing5() * 5;
+		points += this.getRing4() * 4;
+		points += this.getRing3() * 3;
+		points += this.getRing2() * 2;
+		points += this.getRing1() * 1;
+		
+		return points;
+	}
+	
+	public Integer getArrowCount() {
+		return this.getX()
+				+ this.getM()
+				+ this.getRing10()
+				+ this.getRing9()
+				+ this.getRing8()
+				+ this.getRing7()
+				+ this.getRing6()
+				+ this.getRing5()
+				+ this.getRing4()
+				+ this.getRing3()
+				+ this.getRing2()
+				+ this.getRing1();
 	}
 }

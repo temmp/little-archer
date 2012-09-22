@@ -89,6 +89,8 @@ public class WorkoutHandler extends DatabaseHandler {
 	        } while( cursor.moveToNext() );
         }
         
+        db.close();
+        
         return stack;
     }
 
@@ -117,6 +119,8 @@ public class WorkoutHandler extends DatabaseHandler {
         	}
         	
         }
+        
+        db.close();
         
         return result;
     }

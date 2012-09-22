@@ -1,5 +1,6 @@
 package net.arogarth.android.littlearcher;
 
+import java.lang.reflect.Method;
 import java.util.Observable;
 
 import net.arogarth.android.littlearcher.database.RingCountHandler;
@@ -19,7 +20,7 @@ public class WorkoutManager extends Observable {
 	private WorkoutManager() {
 	}
 	
-	private Integer[] ringCount = {0,0,0,0,0,0,0,0,0,0};
+	private RingCount rings = new RingCount();
 	
 	private Workout currentWorkout;
 	
@@ -35,71 +36,107 @@ public class WorkoutManager extends Observable {
 		return this.currentWorkout;
 	}
 	
-	public void increaseRing(Integer ringNumber) {
-		this.ringCount[ ringNumber - 1 ]++;
+	public void increaseRing(String ringNumber) {
+		Class<?> clazz = rings.getClass();
+		
+		String methodName = "";
+		if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
+			methodName = ringNumber;
+		else
+			methodName = "Ring" + ringNumber;
+		
+		Method method;
+		try {
+			method = clazz.getMethod("get" + methodName);
+			Integer count = (Integer) method.invoke(rings);
+			
+			count++;
+			
+			method = clazz.getMethod("set" + methodName, Integer.class);
+			method.invoke(rings, count);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.validate();
 	}
 	
-	public void decreaseRing(Integer ringNumber) {
-		this.ringCount[ ringNumber - 1 ]--;
-
+	public void decreaseRing(String ringNumber) {
+		Class<?> clazz = rings.getClass();
+		
+		String methodName = "";
+		if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
+			methodName = ringNumber;
+		else
+			methodName = "Ring" + ringNumber;
+		
+		Method method;
+		try {
+			method = clazz.getMethod("get" + methodName);
+			Integer count = (Integer) method.invoke(rings);
+			
+			if( count > 0 )
+				count--;
+			
+			method = clazz.getMethod("set" + methodName, Integer.class);
+			method.invoke(rings, count);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.validate();
 	}
 	
-	public Integer getSum() {
-		Integer sum = 0;
+	public Integer getRingCount(String index) {
+		Class<?> clazz = rings.getClass();
 		
-		for(int i = 0; i < this.ringCount.length; i++ )
-			sum += this.ringCount[i] * ( i + 1 );
+		String methodName = "";
+		if( index.equalsIgnoreCase("M") || index.equalsIgnoreCase("X") )
+			methodName = index;
+		else
+			methodName = "Ring" + index;
 		
-		return sum;
+		Integer count = 0;
+		Method method;
+		try {
+			method = clazz.getMethod("get" + methodName);
+			count = (Integer) method.invoke(rings);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 	
-	public Integer getRingCount(Integer index) {
-		return this.ringCount[index];
-	}
-	
-	public Integer[] getRingCounts() {
-		return this.ringCount;
+	public RingCount getRingCount() {
+		return this.rings;
 	}
 	
 	public void save() {
-		
-		RingCount rc = new RingCount();
 	
-		rc.setWorkout( this.getCurrentWorkout() );
-		rc.setRound( this.getNextRun() );
-		rc.setRing1(ringCount[0]);
-		rc.setRing2(ringCount[1]);
-		rc.setRing3(ringCount[2]);
-		rc.setRing4(ringCount[3]);
-		rc.setRing5(ringCount[4]);
-		rc.setRing6(ringCount[5]);
-		rc.setRing7(ringCount[6]);
-		rc.setRing8(ringCount[7]);
-		rc.setRing9(ringCount[8]);
-		rc.setRing10(ringCount[9]);
+		rings.setWorkout( this.getCurrentWorkout() );
+		rings.setRound( this.getNextRun() );
 		
-		RingCountHandler.getInstance().addRingCount( rc );
+		RingCountHandler.getInstance().addRingCount( rings );
 		
-		for(int i=0; i < ringCount.length; i++)
-			ringCount[i] = 0;
-	
+		rings = new RingCount();
+		
 		this.reset();
 	}
 	
 	public void reset() {
-		for(int i=0; i < ringCount.length; i++)
-			ringCount[i] = 0;
+		rings = new RingCount();
 		
 		this.validate();
 	}
 	
 	private void validate() {
-		for(int i = 0; i < this.ringCount.length; i++) {
-			if( this.ringCount[i] < 0 ) this.ringCount[i] = 0;
-		}
+//		for(int i = 0; i < this.ringCount.length; i++) {
+//			if( this.ringCount[i] < 0 ) this.ringCount[i] = 0;
+//		}
 		
 		this.setChanged();
 		

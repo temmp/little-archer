@@ -36,11 +36,33 @@
                 android:text="Save" />
             
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="E = "
+                />
+            
+            <TextView
                 android:id="@+id/ringSum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="= 0"
+                android:text="0"
+                />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text=" - P = "
+                />
+            
+            <TextView
+                android:id="@+id/arrowSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
                 />
         </LinearLayout>
     </RelativeLayout>

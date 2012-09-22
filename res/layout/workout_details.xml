@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +15,18 @@
             android:layout_height="wrap_content"
             android:text="#" />
 
+        <TextView
+            style="@style/overview_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M" />
+        
+        <TextView
+            style="@style/overview_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X" />
+        
         <TextView
             style="@style/overview_row"
             android:layout_width="wrap_content"
@@ -74,14 +86,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1" />
+        
+         <TextView
+            style="@style/overview_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E" />
     </LinearLayout>
 
     <ListView
-        android:id="@+id/overview"
+        android:id="@+id/list_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        
     </ListView>
 
 </LinearLayout>

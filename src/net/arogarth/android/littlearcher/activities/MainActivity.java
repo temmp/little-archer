@@ -5,6 +5,7 @@ import java.util.Date;
 
 import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.WorkoutManager;
+import net.arogarth.android.littlearcher.activities.workout.ListActivity;
 import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import net.arogarth.android.littlearcher.database.models.Workout;
 import android.app.Activity;
@@ -42,7 +43,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void overview(View row) {
-		Intent passe = new Intent(this, ListWorkoutActivity.class);
+		Intent passe = new Intent(this, ListActivity.class);
 		startActivity(passe);
 	}
 }
