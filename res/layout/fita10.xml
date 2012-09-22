@@ -1,308 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/net.arogarth.android.littlearcher"
+    android:id="@+id/ringList"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:id="@+id/ringList">
+    android:orientation="vertical" >
 
-    <TableRow style="@style/GOLD_RINGS" >
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="10" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="9" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="10"
-            android:text="-" />
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="8" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="10"
-            android:text="+" />
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="7" />
 
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="6" />
 
-    <TableRow style="@style/GOLD_RINGS" >
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="5" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="4" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="9"
-            android:text="-" />
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="3" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="9"
-            android:text="+" />
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="2" />
 
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
+    <net.arogarth.android.littlearcher.views.FitaRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ring="1" />
 
-    <TableRow style="@style/RED_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="8: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="8"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="8"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow style="@style/RED_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="7"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="7"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow style="@style/BLUE_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="6"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="6"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow style="@style/BLUE_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="5"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="5"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow style="@style/BLACK_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="4"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="4"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow style="@style/BLACK_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="3"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="3"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow style="@style/WHITE_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="2"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="2"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow style="@style/WHITE_RINGS" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="reduceRing"
-            android:tag="1"
-            android:text="-" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseRing"
-            android:tag="1"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/ringCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-</TableLayout>
+</LinearLayout>

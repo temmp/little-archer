@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TableRow
+    <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="resumeWorkout"
+        android:text="@string/resume_last_workout" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Start"
-        	android:onClick="startPasse" />
-        
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Overview"
-        	android:onClick="overview" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="startWorkout"
+        android:text="@string/start_new_workout" />
+    
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="overview"
+        android:text="@string/workout_results" />
 
-    </TableRow>
-
-</TableLayout>
+</LinearLayout>

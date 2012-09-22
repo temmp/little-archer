@@ -1,8 +1,8 @@
 package net.arogarth.android.littlearcher.database.models;
 
 public class RingCount {
-	private Integer id;
-	private Integer trainingId;
+	private Long id;
+	private Long workoutId;
 	private Integer round;
 	private Integer ring1;
 	private Integer ring2;
@@ -19,26 +19,39 @@ public class RingCount {
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public void setWorkoutId(Long workoutId) {
+		this.workoutId = workoutId;
+	}
+	
+	public Long getWorkoutId() {
+		return this.workoutId;
+	}
+	
+	public void setWorkout(Workout workout) {
+		this.setWorkoutId( workout.getId() );
+	}
+	
 	/**
 	 * @return the trainingId
 	 */
-	public Integer getTrainingId() {
-		return trainingId;
+	public Long getTrainingId() {
+		return workoutId;
 	}
 	/**
 	 * @param trainingId the trainingId to set
 	 */
-	public void setTrainingId(Integer trainingId) {
-		this.trainingId = trainingId;
+	public void setTrainingId(Long trainingId) {
+		this.workoutId = trainingId;
 	}
 	/**
 	 * @return the round

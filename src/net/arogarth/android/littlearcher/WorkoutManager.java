@@ -4,23 +4,36 @@ import java.util.Observable;
 
 import net.arogarth.android.littlearcher.database.RingCountHandler;
 import net.arogarth.android.littlearcher.database.models.RingCount;
+import net.arogarth.android.littlearcher.database.models.Workout;
 
-public class RingManager extends Observable {
-	private static RingManager instance = null;
+public class WorkoutManager extends Observable {
+	private static WorkoutManager instance = null;
 	
-	public static RingManager getInstance() {
+	public static WorkoutManager getInstance() {
 		if( instance == null )
-			instance = new RingManager();
+			instance = new WorkoutManager();
 		
 		return instance;
 	}
 	
-	private RingManager() {
+	private WorkoutManager() {
 	}
 	
-	private Integer run = 0;
-	
 	private Integer[] ringCount = {0,0,0,0,0,0,0,0,0,0};
+	
+	private Workout currentWorkout;
+	
+	private Integer getNextRun() {
+		return RingCountHandler.getInstance().getNextRound(this.currentWorkout);
+	}
+	
+	public void setCurrentWorkout(Workout workout) {
+		this.currentWorkout = workout;
+	}
+	
+	public Workout getCurrentWorkout() {
+		return this.currentWorkout;
+	}
 	
 	public void increaseRing(Integer ringNumber) {
 		this.ringCount[ ringNumber - 1 ]++;
@@ -54,7 +67,9 @@ public class RingManager extends Observable {
 	public void save() {
 		
 		RingCount rc = new RingCount();
-		rc.setRound(run);
+	
+		rc.setWorkout( this.getCurrentWorkout() );
+		rc.setRound( this.getNextRun() );
 		rc.setRing1(ringCount[0]);
 		rc.setRing2(ringCount[1]);
 		rc.setRing3(ringCount[2]);
@@ -66,13 +81,11 @@ public class RingManager extends Observable {
 		rc.setRing9(ringCount[8]);
 		rc.setRing10(ringCount[9]);
 		
-		new RingCountHandler().addRingCount( rc );
+		RingCountHandler.getInstance().addRingCount( rc );
 		
 		for(int i=0; i < ringCount.length; i++)
 			ringCount[i] = 0;
 	
-		run++;
-		
 		this.reset();
 	}
 	
@@ -86,7 +99,6 @@ public class RingManager extends Observable {
 	private void validate() {
 		for(int i = 0; i < this.ringCount.length; i++) {
 			if( this.ringCount[i] < 0 ) this.ringCount[i] = 0;
-			if( this.ringCount[i] > 10 ) this.ringCount[i] = 10;
 		}
 		
 		this.setChanged();
