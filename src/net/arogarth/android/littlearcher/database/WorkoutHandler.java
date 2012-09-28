@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
+import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
 import android.content.ContentValues;
@@ -25,10 +26,14 @@ public class WorkoutHandler extends DatabaseHandler {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String ringCount = "CREATE TABLE "
-				+ TABLE_NAME
-				+ " ("
-				+ "id INTEGER PRIMARY KEY, date TEXT, name TEXT, description TEXT)";
+		String ringCount = "CREATE TABLE " +
+				TABLE_NAME +
+				" (" +
+				"id INTEGER PRIMARY KEY, " +
+				"date TEXT, " +
+				"name TEXT, " +
+				"description TEXT" +
+				")";
 
 		db.execSQL(ringCount);
 	}
@@ -36,7 +41,7 @@ public class WorkoutHandler extends DatabaseHandler {
 	// Upgrading database
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		onCreate(db);
+//		onCreate(db);
 	}
 
 	public Workout saveWorkout(Workout workout) {

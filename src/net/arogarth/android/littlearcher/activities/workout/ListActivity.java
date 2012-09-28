@@ -65,7 +65,7 @@ public class ListActivity extends Activity {
 			((TextView) v.findViewById(R.id.workout_date)).setText(w.getDate().toLocaleString());
 			
 			Integer count = RingCountHandler.getInstance().loadResults(
-					String.format("training_id = %s", w.getId().toString())).size();
+					String.format("workout_id = %s", w.getId().toString())).size();
 
 			((TextView) v.findViewById(R.id.workout_count)).setText(count.toString());
 			

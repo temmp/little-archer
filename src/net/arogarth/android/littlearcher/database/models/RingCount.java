@@ -42,18 +42,6 @@ public class RingCount {
 	}
 	
 	/**
-	 * @return the trainingId
-	 */
-	public Long getTrainingId() {
-		return workoutId;
-	}
-	/**
-	 * @param trainingId the trainingId to set
-	 */
-	public void setTrainingId(Long trainingId) {
-		this.workoutId = trainingId;
-	}
-	/**
 	 * @return the round
 	 */
 	public Integer getRound() {

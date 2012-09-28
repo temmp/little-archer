@@ -23,12 +23,16 @@ public class RingCountHandler extends DatabaseHandler {
         super(TABLE_NAME);
     }
  
+    public String getTableName() {
+    	return TABLE_NAME;
+    }
+    
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
         String ringCount = "CREATE TABLE " + TABLE_NAME + " (" +
                 "id INTEGER PRIMARY KEY," +
-                "training_id INTEGER, round INTEGER," +
+                "workout_id INTEGER, round INTEGER," +
                 "ring1 INTEGER, ring2 INTEGER, ring3 INTEGER," +
                 "ring4 INTEGER, ring5 INTEGER, ring6 INTEGER," +
                 "ring7 INTEGER, ring8 INTEGER, ring9 INTEGER," +
@@ -39,18 +43,14 @@ public class RingCountHandler extends DatabaseHandler {
  
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS ring_count");
- 
-        // Create tables again
-        onCreate(db);
+    	
     }
     
     public void addRingCount(RingCount rings) {
     	SQLiteDatabase db = getWritableDatabase();
     	
     	ContentValues values = new ContentValues();
-    	values.put("training_id", rings.getTrainingId());
+    	values.put("workout_id", rings.getWorkoutId());
     	values.put("round", rings.getRound());
     	values.put("ring1", rings.getRing1());
     	values.put("ring2", rings.getRing2());
@@ -67,7 +67,6 @@ public class RingCountHandler extends DatabaseHandler {
     	
     	db.insert(TABLE_NAME, null, values);
     	db.close();
-    	
     }
     
     public ArrayList<RingCount> loadResults() {
@@ -79,35 +78,37 @@ public class RingCountHandler extends DatabaseHandler {
     	 
         Cursor cursor = db.query(
         		TABLE_NAME,
-        		new String[]{"id", "training_id", "round",
+        		new String[]{"id", "workout_id", "round",
         				"ring1", "ring2", "ring3", "ring4", "ring5",
         				"ring6", "ring7", "ring8", "ring9", "ring10", "X", "M"},
         		where,
         		null, null, null, null);
         
-        if (cursor != null)
-            cursor.moveToFirst();
-
         ArrayList<RingCount> stack = new ArrayList<RingCount>();
-        do {
-        	RingCount row = new RingCount();
-        	row.setId(cursor.getLong(0));
-        	row.setRound(cursor.getInt(2));
-        	row.setRing1(cursor.getInt(3));
-        	row.setRing2(cursor.getInt(4));
-        	row.setRing3(cursor.getInt(5));
-        	row.setRing4(cursor.getInt(6));
-        	row.setRing5(cursor.getInt(7));
-        	row.setRing6(cursor.getInt(8));
-        	row.setRing7(cursor.getInt(9));
-        	row.setRing8(cursor.getInt(10));
-        	row.setRing9(cursor.getInt(11));
-        	row.setRing10(cursor.getInt(12));
-        	row.setX(cursor.getInt(13));
-        	row.setM(cursor.getInt(14));
-        	
-        	stack.add(row);
-        } while( cursor.moveToNext() );
+        
+        if ( cursor.moveToFirst() ) {
+
+	        do {
+	        	RingCount row = new RingCount();
+	        	row.setId(cursor.getLong(0));
+	        	row.setRound(cursor.getInt(2));
+	        	row.setRing1(cursor.getInt(3));
+	        	row.setRing2(cursor.getInt(4));
+	        	row.setRing3(cursor.getInt(5));
+	        	row.setRing4(cursor.getInt(6));
+	        	row.setRing5(cursor.getInt(7));
+	        	row.setRing6(cursor.getInt(8));
+	        	row.setRing7(cursor.getInt(9));
+	        	row.setRing8(cursor.getInt(10));
+	        	row.setRing9(cursor.getInt(11));
+	        	row.setRing10(cursor.getInt(12));
+	        	row.setX(cursor.getInt(13));
+	        	row.setM(cursor.getInt(14));
+	        	
+	        	stack.add(row);
+	        } while( cursor.moveToNext() );
+        
+        }
         
         db.close();
         
@@ -124,14 +125,60 @@ public class RingCountHandler extends DatabaseHandler {
     	SQLiteDatabase db = this.getReadableDatabase();
     	
     	Cursor cursor = db.rawQuery(
-    			String.format( "SELECT MAX(round) FROM %s WHERE training_id = %s", TABLE_NAME, workoutId.toString()), null );
+    			String.format( "SELECT MAX(round) FROM %s WHERE workout_id = %s", TABLE_NAME, workoutId.toString()), null );
     	
     	if( cursor.moveToFirst() ) {
     		round = cursor.getInt(0);
     		round++;
     	}
     	
+    	db.close();
+    	
     	return round;
     }
     
+    public RingCount getSum(Long workoutId) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+        String sql = String.format("SELECT " +
+        		"SUM(ring1) AS sum_ring1, " +
+        		"SUM(ring2) AS sum_ring2, " +
+        		"SUM(ring3) AS sum_ring3, " +
+        		"SUM(ring4) AS sum_ring4, " +
+        		"SUM(ring5) AS sum_ring5, " +
+        		"SUM(ring6) AS sum_ring6, " +
+        		"SUM(ring7) AS sum_ring7, " +
+        		"SUM(ring8) AS sum_ring8, " +
+        		"SUM(ring9) AS sum_ring9, " +
+        		"SUM(ring10) AS sum_ring10, " +
+        		"SUM(X) AS sum_X, " +
+        		"SUM(M) AS sum_M " +
+        		"FROM %s " +
+        		"WHERE workout_id = %s", TABLE_NAME, workoutId);
+        
+        Cursor cursor = db.rawQuery(sql, null);
+        
+        RingCount row = new RingCount();
+        
+        if ( cursor.moveToFirst() ) {
+//        	row.setId(cursor.getLong(0));
+//        	row.setRound(cursor.getInt(2));
+        	row.setRing1(cursor.getInt(0));
+        	row.setRing2(cursor.getInt(1));
+        	row.setRing3(cursor.getInt(2));
+        	row.setRing4(cursor.getInt(3));
+        	row.setRing5(cursor.getInt(4));
+        	row.setRing6(cursor.getInt(5));
+        	row.setRing7(cursor.getInt(6));
+        	row.setRing8(cursor.getInt(7));
+        	row.setRing9(cursor.getInt(8));
+        	row.setRing10(cursor.getInt(9));
+        	row.setX(cursor.getInt(10));
+        	row.setM(cursor.getInt(11));
+        }
+        
+        db.close();
+        
+        return row;
+	}
 }

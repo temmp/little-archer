@@ -13,20 +13,20 @@ public abstract class DatabaseHandler extends SQLiteOpenHelper {
 		super(LittleArcher.getContext(), tableName, null, databaseVersion);
 	}
 
-	/**
-	 * @return the tableName
-	 */
-	public final String getTableName() {
-		return tableName;
-	}
-
-	/**
-	 * @param tableName
-	 *            the tableName to set
-	 */
-	public final void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
+//	/**
+//	 * @return the tableName
+//	 */
+//	public final String getTableName() {
+//		return tableName;
+//	}
+//
+//	/**
+//	 * @param tableName
+//	 *            the tableName to set
+//	 */
+//	public final void setTableName(String tableName) {
+//		this.tableName = tableName;
+//	}
 
 	/**
 	 * @return the databaseName
