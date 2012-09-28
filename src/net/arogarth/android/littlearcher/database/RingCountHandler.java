@@ -181,4 +181,10 @@ public class RingCountHandler extends DatabaseHandler {
         
         return row;
 	}
+    
+    public void delete(String where, String[] args) {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	db.delete(TABLE_NAME, where, args);
+    	db.close();
+    }
 }

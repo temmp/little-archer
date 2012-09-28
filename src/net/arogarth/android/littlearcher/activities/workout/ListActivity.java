@@ -3,15 +3,19 @@ package net.arogarth.android.littlearcher.activities.workout;
 import java.util.ArrayList;
 
 import net.arogarth.android.littlearcher.R;
+import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.R.id;
 import net.arogarth.android.littlearcher.R.layout;
+import net.arogarth.android.littlearcher.activities.RingCountActivity;
 import net.arogarth.android.littlearcher.database.RingCountHandler;
 import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
 import android.R.integer;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListAdapter;
@@ -29,16 +34,20 @@ import android.widget.Toast;
 
 public class ListActivity extends Activity {
 	
-	private class ListWorkoutAdapter extends BaseAdapter implements OnItemClickListener {
+	private class ListWorkoutAdapter extends BaseAdapter implements OnItemClickListener, OnItemLongClickListener {
 
 		private final LayoutInflater mInflater;
 		private ArrayList<Workout> workouts = new ArrayList<Workout>();
+		private ListView list;
 		
-		public ListWorkoutAdapter() {
+		public ListWorkoutAdapter(ListView list) {
+			this.list = list;
+			
+			list.setOnItemClickListener(this);
+	        list.setOnItemLongClickListener(this);
+	        
 			mInflater = (LayoutInflater) ListActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			
 			workouts = WorkoutHandler.getInstance().loadList();
-			
 		}
 		
 		@Override
@@ -79,6 +88,35 @@ public class ListActivity extends Activity {
 			startActivity(i);
 		}
 
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
+			
+			final CharSequence[] items = {"Resume", "Delete"};
+	        AlertDialog.Builder builder = new AlertDialog.Builder(ListWorkoutAdapter.this.list.getContext());
+	        builder.setTitle("Select");
+	        builder.setItems(items, new DialogInterface.OnClickListener(){
+	            public void onClick(DialogInterface dialogInterface, int item) {
+	            	
+	            	if(item == 0) {
+	            		Workout w = WorkoutHandler.getInstance().loadList(
+	            				String.format("id = %s", id)).get(0);
+	            		WorkoutManager.getInstance().setCurrentWorkout(w);
+	            		
+	            		Intent passe = new Intent(ListActivity.this, RingCountActivity.class);
+	            		startActivity(passe);
+	            	} else if(item == 1) {
+        		    	 WorkoutHandler.getInstance().removeWorkout(id);
+        		         notifyDataSetChanged();
+	            	}
+	            	
+	                return;
+	            }
+	        });
+	        builder.create().show();
+			
+			return true;
+		}
+
 	}
 	
 	@Override
@@ -87,10 +125,7 @@ public class ListActivity extends Activity {
         
         setContentView(R.layout.workout_list);
 
-        ListWorkoutAdapter a = new ListWorkoutAdapter();
         ListView list = (ListView) findViewById(R.id.list_workouts);
-        
-        list.setAdapter(a);
-        list.setOnItemClickListener(a);
+        list.setAdapter(new ListWorkoutAdapter(list));
     }
 }
