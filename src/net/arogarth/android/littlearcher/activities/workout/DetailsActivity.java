@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import net.arogarth.android.littlearcher.R;
-import net.arogarth.android.littlearcher.database.RingCountHandler;
+import net.arogarth.android.littlearcher.database.RingHandler;
 import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 import android.app.Activity;
@@ -23,8 +23,7 @@ public class DetailsActivity extends Activity {
 		private ArrayList<RingCount> results = new ArrayList<RingCount>();
 		
 		public WorkoutDetailsListAdapter(Long workoutId) {
-			results = RingCountHandler.getInstance().loadResults(
-					String.format("workout_id = %s", workoutId));
+			results = RingHandler.getInstance().getRingCounts(workoutId);
 		}
 		
 		@Override
@@ -83,7 +82,7 @@ public class DetailsActivity extends Activity {
         
         View row = findViewById(R.id.sum_row);
         
-        RingCount r = RingCountHandler.getInstance().getSum(workoutId);
+        RingCount r = RingHandler.getInstance().getSum(workoutId);
         
 //		((TextView) row.findViewById(R.id.round)).setText(r.getRound().toString());
 		((TextView) row.findViewById(R.id.ringM)).setText(r.getM().toString());

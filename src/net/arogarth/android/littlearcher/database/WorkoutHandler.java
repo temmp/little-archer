@@ -131,7 +131,7 @@ public class WorkoutHandler extends DatabaseHandler {
     }
 	
 	public void removeWorkout(Long workoutId) {
-		RingCountHandler.getInstance().delete("workout_id = ?", new String[]{ workoutId.toString() });
+		RingHandler.getInstance().delete("workout_id = ?", new String[]{ workoutId.toString() });
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_NAME, "id = ?", new String[]{ workoutId.toString() });

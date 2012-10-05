@@ -59,7 +59,7 @@ public class RingCountActivity extends Activity implements Observer {
 		((TextView) findViewById(R.id.arrowSum)).setText(rc.getArrowCount().toString());
 		
 		LinearLayout tl = (LinearLayout) findViewById(R.id.ringList);
-		
+
 		int i=0;
 		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getM().toString());
 		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getX().toString());

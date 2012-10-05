@@ -7,7 +7,7 @@ import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.R.id;
 import net.arogarth.android.littlearcher.R.layout;
 import net.arogarth.android.littlearcher.activities.RingCountActivity;
-import net.arogarth.android.littlearcher.database.RingCountHandler;
+import net.arogarth.android.littlearcher.database.RingHandler;
 import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
@@ -17,6 +17,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,9 +74,8 @@ public class ListActivity extends Activity {
 			((TextView) v.findViewById(R.id.workout_name)).setText(w.getName());
 			((TextView) v.findViewById(R.id.workout_date)).setText(w.getDate().toLocaleString());
 			
-			Integer count = RingCountHandler.getInstance().loadResults(
-					String.format("workout_id = %s", w.getId().toString())).size();
-
+			
+			Integer count = RingHandler.getInstance().countArrows(w.getId());
 			((TextView) v.findViewById(R.id.workout_count)).setText(count.toString());
 			
 			return v;

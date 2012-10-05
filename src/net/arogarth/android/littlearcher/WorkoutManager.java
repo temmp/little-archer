@@ -3,7 +3,8 @@ package net.arogarth.android.littlearcher;
 import java.lang.reflect.Method;
 import java.util.Observable;
 
-import net.arogarth.android.littlearcher.database.RingCountHandler;
+import net.arogarth.android.littlearcher.database.RingHandler;
+import net.arogarth.android.littlearcher.database.models.Ring;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
@@ -25,7 +26,7 @@ public class WorkoutManager extends Observable {
 	private Workout currentWorkout;
 	
 	private Integer getNextRun() {
-		return RingCountHandler.getInstance().getNextRound(this.currentWorkout);
+		return RingHandler.getInstance().getNextRound(this.currentWorkout);
 	}
 	
 	public void setCurrentWorkout(Workout workout) {
@@ -117,12 +118,37 @@ public class WorkoutManager extends Observable {
 	
 	public void save() {
 	
-		rings.setWorkout( this.getCurrentWorkout() );
-		rings.setRound( this.getNextRun() );
+		Integer passe = this.getNextRun();
+		Long workoutId = this.getCurrentWorkout().getId();
 		
-		RingCountHandler.getInstance().addRingCount( rings );
+		for(int i=0; i < this.rings.getX(); i++) {
+			Ring ring = new Ring("X", passe, workoutId);
+			RingHandler.getInstance().addRing(ring);
+		}
 		
-		rings = new RingCount();
+		for(int j=10; j>0; j--) {
+			try {
+				Class<?> clazz = rings.getClass();
+				
+				String methodName = "getRing" + j;
+				
+				Method method = clazz.getMethod(methodName);
+				Integer count = (Integer) method.invoke(rings);
+				
+				for(int i=0; i < count; i++) {
+					Ring ring = new Ring("X", passe, workoutId);
+					RingHandler.getInstance().addRing(ring);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		for(int i=0; i < this.rings.getM(); i++) {
+			Ring ring = new Ring("M", passe, workoutId);
+			RingHandler.getInstance().addRing(ring);
+		}
 		
 		this.reset();
 	}

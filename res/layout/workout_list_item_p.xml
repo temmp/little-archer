@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/table_column"
+                android:id="@+id/col1" />
+
+            <TextView
+                style="@style/table_column"
+                android:id="@+id/col2" />
+
+            <TextView
+                style="@style/table_column"
+                android:id="@+id/col3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/table_column"
+                android:id="@+id/col4" />
+
+            <TextView
+                style="@style/table_column"
+                android:id="@+id/col5" />
+
+            <TextView
+                style="@style/table_column"
+                android:id="@+id/col6" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/table_column"
+        android:layout_height="100dp"
+        android:id="@+id/col_sum" />
+
+    <TextView
+        style="@style/table_column"
+        android:layout_height="100dp"
+        android:id="@+id/col_total" />
+
+</LinearLayout>
