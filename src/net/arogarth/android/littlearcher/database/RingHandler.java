@@ -144,60 +144,131 @@ public class RingHandler extends DatabaseHandler {
     	db.close();
     }
     
-    public ArrayList<RingCount> getRingCounts(Long workoutId) {
+    public ArrayList<Ring> loadRings(Long workoutId) {
     	SQLiteDatabase db = this.getReadableDatabase();
-    	Cursor c = null;
-    	String sql = "";
-    	Integer maxPasse = 0;
-    	ArrayList<RingCount> rings = new ArrayList<RingCount>();
     	
-    	sql = String.format("SELECT MAX(passe) FROM %s WHERE workout_id = %s", TABLE_NAME, workoutId.toString());
+    	ArrayList<Ring> rings = new ArrayList<Ring>();
+		
+		String sql = String.format(
+			"SELECT " +
+			"id, " +
+			"workout_id, " +
+			"passe, " +
+			"ring " +
+			"FROM %s " +
+			"WHERE workout_id = %s " +
+			"AND ring IN ('X', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', 'M') ",
+			TABLE_NAME, workoutId.toString());
+	
+		Cursor c = db.rawQuery(sql, null);
+		
+    	if( c.moveToFirst() ) {
+    		do {
+    			Ring r = new Ring();
+    			r.setId(c.getLong(0));
+    			r.setWorkoutId(c.getLong(1));
+    			r.setPasse(c.getInt(2));
+    			r.setRing(c.getString(3));
+    			rings.add(r);
+    		} while( c.moveToNext() );
+    	}
+    	db.close();
     	
-    	c = db.rawQuery(sql, null);
+    	return rings;
+    }
+    public ArrayList<Ring> loadRings(Long workoutId, Integer passe) {
+    	SQLiteDatabase db = this.getReadableDatabase();
     	
-    	if( c.moveToFirst() )
-    		maxPasse = c.getInt(0);
+    	ArrayList<Ring> rings = new ArrayList<Ring>();
     	
-    	for(Integer i=1; i <= maxPasse; i++) {
-    		sql = String.format(
+    	String sql = String.format(
     			"SELECT " +
-    			"ring AS ring, " +
-    			"COUNT(ring) AS sum " +
+				"id, " +
+				"workout_id, " +
+				"passe, " +
+				"ring " +
 				"FROM %s " +
 				"WHERE workout_id = %s " +
 				"AND passe = %s " +
-				"GROUP BY ring " +
-				"ORDER BY ring ", TABLE_NAME, workoutId.toString(), i.toString());
+				"AND ring IN ('X', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', 'M') ",
+				TABLE_NAME, workoutId.toString(), passe.toString());
     	
-    		c = db.rawQuery(sql, null);
-    		
-    		if( c.moveToFirst() ) {
-	    			try {
-		    			RingCount rc = new RingCount();
-		    			
-		    			String ringNumber = c.getString(0);
-		    			Integer count = c.getInt(1);
-		    			
-		    			Class<?> clazz = rc.getClass();
-		    			
-		    			String methodName = "";
-		    			if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
-		    				methodName = ringNumber;
-		    			else
-		    				methodName = "Ring" + ringNumber;
-		    			
-		    			Method method = clazz.getMethod("set" + methodName, Integer.class);
-	    				method.invoke(rc, count);
-	    				
-	    				rc.setRound(i);
-	    				
-	    				rings.add(rc);
-	    			} catch (Exception e) {
-	    				e.printStackTrace();
-	    			}
-    		}
-    		
+    	Cursor c = db.rawQuery(sql, null);
+    	
+    	if( c.moveToFirst() ) {
+    		do {
+    			Ring r = new Ring();
+    			r.setId(c.getLong(0));
+    			r.setWorkoutId(c.getLong(1));
+    			r.setPasse(c.getInt(2));
+    			r.setRing(c.getString(3));
+    			rings.add(r);
+    		} while( c.moveToNext() );
     	}
+    	
+    	db.close();
+    	return rings;
+    }
+    
+    public ArrayList<RingCount> getRingCounts(Long workoutId) {
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	String sql = "";
+    	ArrayList<RingCount> rings = new ArrayList<RingCount>();
+    	
+		sql = String.format(
+				"SELECT passe FROM %s WHERE workout_id = %s ORDER BY passe",
+				RingHandler.getInstance().getTableName(),
+				workoutId.toString()
+				);
+		
+		Cursor passes = db.rawQuery(sql, null);
+		
+		if( passes.moveToFirst() ) {
+
+			do {
+				Integer passe = passes.getInt(0);
+				
+	    		sql = String.format(
+	    			"SELECT " +
+	    			"ring AS ring, " +
+	    			"COUNT(ring) AS sum " +
+					"FROM %s " +
+					"WHERE workout_id = %s " +
+					"AND passe = %s " +
+					"GROUP BY ring " +
+					"ORDER BY ring ", TABLE_NAME, workoutId.toString(), passe);
+	    	
+	    		Cursor c = db.rawQuery(sql, null);
+	    		
+	    		if( c.moveToFirst() ) {
+		    			try {
+			    			RingCount rc = new RingCount();
+			    			
+			    			String ringNumber = c.getString(0);
+			    			Integer count = c.getInt(1);
+			    			
+			    			Class<?> clazz = rc.getClass();
+			    			
+			    			String methodName = "";
+			    			if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
+			    				methodName = ringNumber;
+			    			else
+			    				methodName = "Ring" + ringNumber;
+			    			
+			    			Method method = clazz.getMethod("set" + methodName, Integer.class);
+		    				method.invoke(rc, count);
+		    				
+		    				rc.setRound(passe);
+		    				
+		    				rings.add(rc);
+		    			} catch (Exception e) {
+		    				e.printStackTrace();
+		    			}
+	    		}
+		    		
+		    	} while( passes.moveToNext() );
+		}
+		
     	db.close();
     	
     	return rings;

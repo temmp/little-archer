@@ -31,15 +31,21 @@
         <item name="android:width">15pt</item>
     </style>
 
-    <style name="table_column" parent="@android:style/TextAppearance.Large">
-        <item name="android:background">@drawable/table</item>
+    <style name="table_column_ring" parent="@android:style/TextAppearance.Medium">
+<!--         <item name="android:background">@drawable/table_top</item> -->
         <item name="android:gravity">center</item>
-        <item name="android:textSize">35dp</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:minWidth">50dp</item>
-        <item name="android:layout_weight">.20</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:minWidth">30dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:padding">4dp</item>
+        <item name="android:layout_weight">.20</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+    
+    <style name="table_column_sum" parent="table_column_ring">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">60dp</item>
     </style>
 
 </resources>

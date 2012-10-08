@@ -126,7 +126,7 @@ public class WorkoutManager extends Observable {
 			RingHandler.getInstance().addRing(ring);
 		}
 		
-		for(int j=10; j>0; j--) {
+		for(Integer j=10; j>0; j--) {
 			try {
 				Class<?> clazz = rings.getClass();
 				
@@ -136,7 +136,7 @@ public class WorkoutManager extends Observable {
 				Integer count = (Integer) method.invoke(rings);
 				
 				for(int i=0; i < count; i++) {
-					Ring ring = new Ring("X", passe, workoutId);
+					Ring ring = new Ring(j.toString(), passe, workoutId);
 					RingHandler.getInstance().addRing(ring);
 				}
 			} catch (Exception e) {
