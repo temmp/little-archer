@@ -38,6 +38,9 @@ public class WorkoutManager extends Observable {
 	}
 	
 	public void increaseRing(String ringNumber) {
+		if( this.rings.getArrowCount() >= 6 )
+			return;
+		
 		Class<?> clazz = rings.getClass();
 		
 		String methodName = "";
@@ -117,7 +120,15 @@ public class WorkoutManager extends Observable {
 	}
 	
 	public void save() {
-	
+		int max = 3;
+		
+		if( this.rings.getArrowCount() > 3 )
+			max = 6;
+		
+		for(int i = this.rings.getArrowCount(); i < max; i++) {
+			this.rings.setM(this.rings.getM() + 1);
+		}
+		
 		Integer passe = this.getNextRun();
 		Long workoutId = this.getCurrentWorkout().getId();
 		

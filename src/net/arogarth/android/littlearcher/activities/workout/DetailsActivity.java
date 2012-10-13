@@ -121,75 +121,65 @@ public class DetailsActivity extends Activity {
 		Cursor c = db.rawQuery(sql, null);
 		
 		if( c.moveToFirst() ) {
-			Integer lastRound = 0;
+			Integer total = 0;
 			
 			do {
 				Integer passe = c.getInt(0);
-				ArrayList<Ring> rings = RingHandler.getInstance().loadRings(workoutId, passe);
+				ArrayList<Ring> rings = new ArrayList<Ring>();
 				
 				View v = li.inflate(R.layout.workout_list_item_p, null);
 				
 				Integer points = 0;
+				Integer row = 0;
+				
+				rings.addAll(
+						RingHandler.getInstance().loadRings(workoutId, passe));
 				
 				if( rings.size() == 3 ) {
-					((TextView) v.findViewById(R.id.col1)).setText(rings.get(0).getRing());
-					((TextView) v.findViewById(R.id.col2)).setText(rings.get(1).getRing());
-					((TextView) v.findViewById(R.id.col3)).setText(rings.get(2).getRing());
-
-					for(Ring r : rings) {
-						if(r.getRing().equalsIgnoreCase("X")) {
-							points +=10;
-						} else if(r.getRing().equalsIgnoreCase("M")) {
-							points += 0;
-						} else {
-							points += Integer.parseInt(r.getRing());
-						}
-					}
-					
 					if( c.moveToNext() ) {
 						passe = c.getInt(0);
-						rings = RingHandler.getInstance().loadRings(workoutId, passe);
-						
-						((TextView) v.findViewById(R.id.col4)).setText(rings.get(0).getRing());
-						((TextView) v.findViewById(R.id.col5)).setText(rings.get(1).getRing());
-						((TextView) v.findViewById(R.id.col6)).setText(rings.get(2).getRing());
-						
-						for(Ring r : rings) {
-							if(r.getRing().equalsIgnoreCase("X")) {
-								points +=10;
-							} else if(r.getRing().equalsIgnoreCase("M")) {
-								points += 0;
-							} else {
-								points += Integer.parseInt(r.getRing());
-							}
-						}
-						
+						rings.addAll(
+								RingHandler.getInstance().loadRings(workoutId, passe));
 					}
-				} else {
+				}
+
+				try {
 					((TextView) v.findViewById(R.id.col1)).setText(rings.get(0).getRing());
 					((TextView) v.findViewById(R.id.col2)).setText(rings.get(1).getRing());
 					((TextView) v.findViewById(R.id.col3)).setText(rings.get(2).getRing());
 					((TextView) v.findViewById(R.id.col4)).setText(rings.get(3).getRing());
 					((TextView) v.findViewById(R.id.col5)).setText(rings.get(4).getRing());
 					((TextView) v.findViewById(R.id.col6)).setText(rings.get(5).getRing());
+				} catch(Exception e) { }
+				   
+				row = 0;
+				for(int i=0; i < 6 && i < rings.size(); i++) {
+					Ring r = rings.get(i);
+				
+					if(r.getRing().equalsIgnoreCase("X")) {
+						row +=10;
+					} else if(r.getRing().equalsIgnoreCase("M")) {
+						row += 0;
+					} else {
+						row += Integer.parseInt(r.getRing());
+					}
 					
-					for(Ring r : rings) {
-						if(r.getRing().equalsIgnoreCase("X")) {
-							points +=10;
-						} else if(r.getRing().equalsIgnoreCase("M")) {
-							points += 0;
-						} else {
-							points += Integer.parseInt(r.getRing());
-						}
+					if(i == 2 ) {
+						((TextView) v.findViewById(R.id.total_row_1)).setText(row.toString());
+						points += row;
+						row = 0;
+					} else if( i == 5 ) {
+						((TextView) v.findViewById(R.id.total_row_2)).setText(row.toString());
+						points += row;
+						row = 0;
 					}
 				}
 				
 				((TextView) v.findViewById(R.id.passe_sum)).setText(points.toString());
 				
-				Integer total = lastRound + points;
+				total += points;
 				((TextView) v.findViewById(R.id.sub_total)).setText(total.toString());
 				
-				lastRound = points;
 				
 				((LinearLayout) findViewById(R.id.list_details)).addView(v);
 			} while( c.moveToNext() );
