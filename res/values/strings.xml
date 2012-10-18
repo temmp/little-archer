@@ -10,5 +10,15 @@
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
-
+    <string name="sum_tens_and_x">Ten\'s + X: </string>
+    <string name="sum_x">X: </string>
+    <string name="sum_m">M: </string>
+    <string name="sum_arrows">Arrows: </string>
+    <string name="sum">Sum</string>
+    <string name="carry">Carry</string>
+    <string name="date">Date: </string>
+    <string name="sum_rings">Rings: </string>
+    <string name="number_one">1</string>
+    <string name="number_two">2</string>
+    <string name="number_three">3</string>
 </resources>

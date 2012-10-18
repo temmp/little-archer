@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
 import android.content.ContentValues;
@@ -52,9 +51,12 @@ public class WorkoutHandler extends DatabaseHandler {
 		values.put("name", workout.getName());
 		values.put("description", workout.getDescription());
 
-		long id = db.insert(TABLE_NAME, null, values);
-
-		workout.setId(id);
+		if( workout.getId() == null ) {
+			long id = db.insert(TABLE_NAME, null, values);
+			workout.setId(id);
+		} else {
+			db.update(TABLE_NAME, values, "id = ?", new String[] { workout.getId().toString() });
+		}
 		
 		db.close();
 		

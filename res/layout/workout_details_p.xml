@@ -15,7 +15,7 @@
 
             <TextView
                 style="@style/table_column_ring"
-                android:text="1" />
+                android:text="@string/number_one" />
 
             <View
                 android:layout_width="2dp"
@@ -24,7 +24,7 @@
 
             <TextView
                 style="@style/table_column_ring"
-                android:text="2" />
+                android:text="@string/number_two" />
 
             <View
                 android:layout_width="2dp"
@@ -33,7 +33,7 @@
 
             <TextView
                 style="@style/table_column_ring"
-                android:text="3" />
+                android:text="@string/number_three" />
 
             <View
                 android:layout_width="2dp"
@@ -42,7 +42,7 @@
 
             <TextView
                 style="@style/table_column_ring"
-                android:text="Summe"
+                android:text="@string/sum"
                 android:layout_width="92.5dp"/>
 
             <View
@@ -52,7 +52,7 @@
 
             <TextView
                 style="@style/table_column_ring"
-                android:text="Ü"
+                android:text="@string/carry"
                 android:layout_width="60dp"/>
         </LinearLayout>
 
@@ -72,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Zehner + X: " />
+                android:text="@string/sum_tens_and_x" />
 
             <TextView
                 android:id="@+id/total_10_X"
@@ -83,11 +83,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="X: " />
+                android:text="@string/sum_x" />
             <!-- style="@style/table_column_ring" -->
 
             <TextView
                 android:id="@+id/total_X"
+                style="@style/table_column_ring"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/sum_m" />
+            <!-- style="@style/table_column_ring" -->
+
+            <TextView
+                android:id="@+id/total_M"
                 style="@style/table_column_ring"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
@@ -101,7 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Pfeile: " />
+                android:text="@string/sum_arrows" />
 
             <TextView
                 android:id="@+id/total_arrows"

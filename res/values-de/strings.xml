@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--     <string name="app_name">LittleArcher</string> -->
+<!--     <string name="plus">+</string> -->
+<!--     <string name="minus">-</string> -->
+    <string name="resume_last_workout">Letzte Einheit fortsetzen</string>
+    <string name="start_new_workout">Starte neue Trainingseinheit</string>
+    <string name="workout_results">Ergebnisse</string>
+    <string name="cancel">Abbrechen</string>
+<!--     <string name="reset">Reset</string> -->
+<!--     <string name="save">Speichern</string> -->
+    <string name="sum_tens_and_x">Zehner + X: </string>
+<!--     <string name="sum_x">X: </string> -->
+<!--     <string name="sum_m">M: </string> -->
+    <string name="sum_arrows">Pfeile: </string>
+    <string name="sum">Summe</string>
+    <string name="carry">Übertrag</string>
+    <string name="date">Datum: </string>
+    <string name="sum_rings">Ringe: </string>
+</resources>

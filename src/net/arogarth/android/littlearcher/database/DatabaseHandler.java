@@ -7,7 +7,7 @@ public abstract class DatabaseHandler extends SQLiteOpenHelper {
 
 	private final String databaseName = "littleArcher";
 	private static Integer databaseVersion = 1;
-	private String tableName;
+//	private String tableName;
 
 	public DatabaseHandler(String tableName) {
 		super(LittleArcher.getContext(), tableName, null, databaseVersion);

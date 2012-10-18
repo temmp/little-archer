@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Datum: " />
+            android:text="@string/date" />
 
         <TextView
             android:id="@+id/workout_date"
@@ -33,12 +33,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Anzahl: " />
+            android:text="@string/sum_arrows" />
 
         <TextView
-            android:id="@+id/workout_count"
+            android:id="@+id/arrowSum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/sum_rings" />
+
+        <TextView
+            android:id="@+id/ringSum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
     </LinearLayout>
 
 </LinearLayout>

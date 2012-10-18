@@ -2,13 +2,11 @@ package net.arogarth.android.littlearcher.database;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Date;
 
 import net.arogarth.android.littlearcher.database.models.Ring;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
-import android.text.format.DateFormat;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -94,6 +92,26 @@ public class RingHandler extends DatabaseHandler {
     	
     	return count;
     }
+    
+    public Integer countRings(Long workoutId) {
+    	Integer sumRings = 0;
+    	
+    	ArrayList<Ring> rings = this.loadRings(workoutId);
+    	for(Ring r : rings) {
+    		if(r.getRing().equalsIgnoreCase("M")) {
+    			sumRings += 0;
+    		} else if(r.getRing().equalsIgnoreCase("X")) {
+    			sumRings += 10;
+    		} else {
+    			try {
+    				sumRings += Integer.valueOf(r.getRing());
+    			} catch (Exception e) { }
+    		}
+    	}
+    	
+    	return sumRings;
+    }
+    
     public RingCount getSum(Long workoutId) {
     	SQLiteDatabase db = this.getReadableDatabase();
     	Cursor c = null;
