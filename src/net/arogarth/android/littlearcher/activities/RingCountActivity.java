@@ -5,12 +5,17 @@ import java.util.Observer;
 
 import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.WorkoutManager;
+import net.arogarth.android.littlearcher.activities.workout.DetailsActivity;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -31,7 +36,27 @@ public class RingCountActivity extends Activity implements Observer {
         
         WorkoutManager.getInstance().addObserver(this);
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.ring_count, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch( item.getItemId() ) {
+    	case R.id.menu_view_details:
+    		Intent passe = new Intent(this, DetailsActivity.class);
+        	passe.putExtra("workout_id", WorkoutManager.getInstance().getCurrentWorkout().getId());
+        	startActivity(passe);
+    		break;
+    	}
+    	
+    	return super.onOptionsItemSelected(item);
+    }
+    
     public void save(View button) {
     	WorkoutManager.getInstance().save();
     }
