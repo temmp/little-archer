@@ -2,6 +2,7 @@ package net.arogarth.android.littlearcher.activities;
 
 
 import net.arogarth.android.littlearcher.R;
+import net.arogarth.android.littlearcher.database.CacheHandler;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 public class ArrowcounterActivity extends Activity {
 
 	private Integer counter = 0;
+
+	private static final String counterCacheKey = "arrowcounter.counter";
 	
 	/** Called when the activity is first created. */
     @Override
@@ -22,7 +25,16 @@ public class ArrowcounterActivity extends Activity {
         
         setContentView(R.layout.arrowcounter);
         
-        this.counter = 0;
+        Object o = CacheHandler.getInstance().getValue(counterCacheKey);
+
+        try {
+        	this.counter = Integer.parseInt(o.toString());
+        } catch (Exception e) {
+        	this.counter = 0;
+        }
+        
+        if(this.counter == null) this.counter = 0;
+        	
         this.displayCounter();
     }
     
@@ -46,7 +58,7 @@ public class ArrowcounterActivity extends Activity {
     
     public void reset(View object) {
     	this.counter = 0;
-    	
+    	CacheHandler.getInstance().delete(counterCacheKey);
     	this.displayCounter();
     }
     
@@ -54,6 +66,7 @@ public class ArrowcounterActivity extends Activity {
     	this.counter++;
     	if(this.counter > 999) this.counter = 0;
     	
+    	CacheHandler.getInstance().setValue(counterCacheKey, this.counter.toString());
     	this.displayCounter();
 	}
     
