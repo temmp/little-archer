@@ -17,9 +17,15 @@
     <string name="sum">Sum</string>
     <string name="carry">Carry</string>
     <string name="date">Date: </string>
+    <string name="time">Time: </string>
     <string name="sum_rings">Rings: </string>
     <string name="number_one">1</string>
     <string name="number_two">2</string>
     <string name="number_three">3</string>
     <string name="details">Details</string>
+    <string name="place">Place:</string>
+    <string name="description">Description</string>
+    <string name="name">Name:</string>
+    <string name="properties">Properties</string>
+    <string name="arrowcount">Pfeilzähler</string>
 </resources>

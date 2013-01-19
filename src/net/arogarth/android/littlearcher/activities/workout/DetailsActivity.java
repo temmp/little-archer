@@ -22,7 +22,7 @@ public class DetailsActivity extends Activity {
         
         Long workoutId = getIntent().getLongExtra("workout_id", 0);
         
-        setContentView(R.layout.workout_details_p);
+        setContentView(R.layout.workout_details);
 
         this.buildList(workoutId);
     }
@@ -47,7 +47,7 @@ public class DetailsActivity extends Activity {
 				Integer passe = c.getInt(0);
 				ArrayList<Ring> rings = new ArrayList<Ring>();
 				
-				View v = li.inflate(R.layout.workout_list_item_p, null);
+				View v = li.inflate(R.layout.workout_details_list_item, null);
 				
 				Integer points = 0;
 				Integer row = 0;

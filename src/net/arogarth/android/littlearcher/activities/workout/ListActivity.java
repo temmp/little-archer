@@ -96,7 +96,7 @@ public class ListActivity extends Activity {
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, final long id) {
 			
-			final CharSequence[] items = {"Rename", "Resume", "Delete"};
+			final CharSequence[] items = {"Properties","Resume", "Delete"};
 			
 	        AlertDialog.Builder builder = new AlertDialog.Builder(ListWorkoutAdapter.this.list.getContext());
 	        builder.setTitle("Select");
@@ -105,26 +105,9 @@ public class ListActivity extends Activity {
 	            	int i = 0;
 	            	
 	            	if(item == i++) {
-	            		AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
-	            	    LayoutInflater inflater = ListActivity.this.getLayoutInflater();
-
-	            	    builder.setView(inflater.inflate(R.layout.dialog_textbox, null));
-	            	    builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-	            			@Override
-	            			public void onClick(DialogInterface dialog, int which) {
-	            				EditText et = (EditText) ((AlertDialog) dialog).findViewById(R.id.inputtext);
-	            				Workout w = ListWorkoutAdapter.this.getItem(position);
-	            				w.setName(et.getText().toString());
-	            				WorkoutHandler.getInstance().saveWorkout(w);
-	            				ListWorkoutAdapter.this.notifyDataSetChanged();
-	            			}
-	            		});
-	            	    builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-	            	    	@Override
-	            	    	public void onClick(DialogInterface dialog, int which) {
-	            	    	}
-	            	    });
-	            	    builder.create().show();
+	            		Intent passe = new Intent(ListActivity.this, PropertiesActivity.class);
+	            		passe.putExtra("workout_id", id);
+	            		startActivity(passe);
 	            	} else if(item == i++) {
 	            		Workout w = WorkoutHandler.getInstance().loadList(
 	            				String.format("id = %s", id)).get(0);

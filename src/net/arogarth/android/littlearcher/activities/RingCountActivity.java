@@ -6,6 +6,8 @@ import java.util.Observer;
 import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.activities.workout.DetailsActivity;
+import net.arogarth.android.littlearcher.activities.workout.ListActivity;
+import net.arogarth.android.littlearcher.activities.workout.PropertiesActivity;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 
 import android.app.Activity;
@@ -46,11 +48,17 @@ public class RingCountActivity extends Activity implements Observer {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+    	Intent passe;
     	switch( item.getItemId() ) {
     	case R.id.menu_view_details:
-    		Intent passe = new Intent(this, DetailsActivity.class);
+    		passe = new Intent(this, DetailsActivity.class);
         	passe.putExtra("workout_id", WorkoutManager.getInstance().getCurrentWorkout().getId());
         	startActivity(passe);
+    		break;
+    	case R.id.menu_view_properties:
+    		passe = new Intent(this, PropertiesActivity.class);
+    		passe.putExtra("workout_id", WorkoutManager.getInstance().getCurrentWorkout().getId());
+    		startActivity(passe);
     		break;
     	}
     	

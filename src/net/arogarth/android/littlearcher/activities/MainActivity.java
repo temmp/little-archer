@@ -46,4 +46,9 @@ public class MainActivity extends Activity {
 		Intent passe = new Intent(this, ListActivity.class);
 		startActivity(passe);
 	}
+	
+	public void arrowcounter(View row) {
+		Intent passe = new Intent(this, ArrowcounterActivity.class);
+		startActivity(passe);
+	}
 }

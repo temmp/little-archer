@@ -1,130 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
     <LinearLayout
-        android:layout_weight="0"
-        android:id="@+id/details_head"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
-        <TextView
-            style="@style/overview_row"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="#" />
+            android:orientation="horizontal" >
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="M" />
+            <TextView
+                style="@style/table_column_ring"
+                android:text="@string/number_one" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="X" />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/separator_solid" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10" />
+            <TextView
+                style="@style/table_column_ring"
+                android:text="@string/number_two" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9" />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/separator_solid" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="8" />
+            <TextView
+                style="@style/table_column_ring"
+                android:text="@string/number_three" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7" />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/separator_solid" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6" />
+            <TextView
+                style="@style/table_column_ring"
+                android:text="@string/sum"
+                android:layout_width="92.5dp"/>
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5" />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/separator_solid" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4" />
+            <TextView
+                style="@style/table_column_ring"
+                android:text="@string/carry"
+                android:layout_width="60dp"/>
+        </LinearLayout>
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/list_details"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="3" />
+            android:orientation="vertical" >
+        </LinearLayout>
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/sum"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="2" />
+            android:orientation="horizontal" >
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/sum_tens_and_x" />
 
-        <TextView
-            style="@style/overview_row"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/total_10_X"
+                style="@style/table_column_ring"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/sum_x" />
+            <!-- style="@style/table_column_ring" -->
+
+            <TextView
+                android:id="@+id/total_X"
+                style="@style/table_column_ring"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/sum_m" />
+            <!-- style="@style/table_column_ring" -->
+
+            <TextView
+                android:id="@+id/total_M"
+                style="@style/table_column_ring"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="E" />
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/sum_arrows" />
+
+            <TextView
+                android:id="@+id/total_arrows"
+                style="@style/table_column_ring"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <View
-	    android:layout_width="fill_parent"
-	    android:layout_height="0.5pt"
-	    android:background="#ffffff" />
-    
-    <ListView
-        android:layout_weight="3"
-        android:id="@+id/list_details"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-    </ListView>
-
-    <View
-	    android:layout_width="fill_parent"
-	    android:layout_height="0.5pt"
-	    android:background="#ffffff" />
-    
-    <View
-        android:layout_marginTop="1dip"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0.5pt"
-	    android:background="#ffffff" />
-    
-    <include
-        android:id="@+id/sum_row"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        layout="@layout/overview_row" />
-
-</LinearLayout>
+</ScrollView>

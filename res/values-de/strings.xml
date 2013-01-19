@@ -17,5 +17,14 @@
     <string name="sum">Summe</string>
     <string name="carry">Übertrag</string>
     <string name="date">Datum: </string>
+    <string name="time">Zeit: </string>
     <string name="sum_rings">Ringe: </string>
+<!--     <string name="number_one">1</string> -->
+<!--     <string name="number_two">2</string> -->
+<!--     <string name="number_three">3</string> -->
+<!--     <string name="details">Details</string> -->
+    <string name="place">Ort:</string>
+    <string name="description">Beschreibung:</string>
+<!--     <string name="name">Name:</string> -->
+    <string name="properties">Eigenschaften</string>
 </resources>

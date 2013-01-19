@@ -31,6 +31,7 @@ public class WorkoutHandler extends DatabaseHandler {
 				"id INTEGER PRIMARY KEY, " +
 				"date TEXT, " +
 				"name TEXT, " +
+//				"place TEXT, " +
 				"description TEXT" +
 				")";
 
@@ -40,7 +41,16 @@ public class WorkoutHandler extends DatabaseHandler {
 	// Upgrading database
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//		onCreate(db);
+		for (int i = oldVersion; i <= newVersion; i++)
+        {
+            switch(i)
+            {
+            	case 2:
+		            String sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN place TEXT";
+		            db.execSQL(sql);
+		            break;
+            }
+        }
 	}
 
 	public Workout saveWorkout(Workout workout) {
@@ -49,6 +59,7 @@ public class WorkoutHandler extends DatabaseHandler {
 		ContentValues values = new ContentValues();
 		values.put("date", workout.getDate().getTime());
 		values.put("name", workout.getName());
+		values.put("place", workout.getPlace());
 		values.put("description", workout.getDescription());
 
 		if( workout.getId() == null ) {
@@ -63,6 +74,14 @@ public class WorkoutHandler extends DatabaseHandler {
 		return workout;
 	}
 
+	public Workout load(Long id) {
+		ArrayList<Workout> stack = this.loadList(String.format( "id = %s", id));
+		
+        Workout result = stack.get(0);
+        
+		return result;
+	}
+	
 	public ArrayList<Workout> loadList() {
 		return this.loadList("");
 	}
@@ -72,7 +91,7 @@ public class WorkoutHandler extends DatabaseHandler {
     	 
         Cursor cursor = db.query(
         		TABLE_NAME,
-        		new String[]{"id", "date", "name", "description"},
+        		new String[]{"id", "date", "name", "description", "place"},
         		where,
         		null, null, null, null);
         
@@ -91,6 +110,8 @@ public class WorkoutHandler extends DatabaseHandler {
 	        			cursor.getString(2));
 	        	row.setDescription(
 	        			cursor.getString(3));
+	        	row.setPlace(
+	        			cursor.getString(4));
 	        	
 	        	stack.add(row);
 	        } while( cursor.moveToNext() );

@@ -7,6 +7,7 @@ public class Workout {
 	private Timestamp date;
 	private String name;
 	private String description;
+	private String place;
 	/**
 	 * @return the id
 	 */
@@ -54,5 +55,17 @@ public class Workout {
 	 */
 	public final void setDescription(String description) {
 		this.description = description;
+	}
+	/**
+	 * @return the place
+	 */
+	public final String getPlace() {
+		return place;
+	}
+	/**
+	 * @param place the place to set
+	 */
+	public final void setPlace(String place) {
+		this.place = place;
 	}
 }
