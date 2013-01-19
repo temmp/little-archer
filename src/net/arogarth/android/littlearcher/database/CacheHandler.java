@@ -77,19 +77,19 @@ public class CacheHandler extends DatabaseHandler {
     }
     
     public void setValue(String key, String value) {
-    	SQLiteDatabase db = getWritableDatabase();
+    	Long id = this.exist(key);
     	
     	ContentValues values = new ContentValues();
     	values.put("key", key);
     	values.put("value", value);
     	
-    	Long id = this.exist(key);
+    	
+    	SQLiteDatabase db = getWritableDatabase();
     	if( id == null ) {
     		db.insert(TABLE_NAME, null, values);
     	} else {
     		db.update(TABLE_NAME, values, "id = ?", new String[] { id.toString() });
     	}
-    	
     	db.close();
     }
     
