@@ -1,18 +1,12 @@
 package net.arogarth.android.littlearcher.activities.workout;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import net.arogarth.android.littlearcher.database.models.Workout;
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.text.method.DateTimeKeyListener;
 import android.view.View;
 import android.widget.TextView;
 

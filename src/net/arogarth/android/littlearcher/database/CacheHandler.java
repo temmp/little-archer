@@ -1,12 +1,5 @@
 package net.arogarth.android.littlearcher.database;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
-import net.arogarth.android.littlearcher.database.models.Ring;
-import net.arogarth.android.littlearcher.database.models.RingCount;
-import net.arogarth.android.littlearcher.database.models.Workout;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

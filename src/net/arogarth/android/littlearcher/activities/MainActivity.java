@@ -1,8 +1,5 @@
 package net.arogarth.android.littlearcher.activities;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.activities.workout.Config;

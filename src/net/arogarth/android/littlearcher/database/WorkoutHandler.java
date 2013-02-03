@@ -2,15 +2,12 @@ package net.arogarth.android.littlearcher.database;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
-import net.arogarth.android.littlearcher.database.models.Ring;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.RingtoneManager;
 
 public class WorkoutHandler extends DatabaseHandler {
 

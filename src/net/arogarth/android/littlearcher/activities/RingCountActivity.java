@@ -6,9 +6,7 @@ import java.util.Observer;
 import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.activities.workout.DetailsActivity;
-import net.arogarth.android.littlearcher.activities.workout.ListActivity;
 import net.arogarth.android.littlearcher.activities.workout.PropertiesActivity;
-import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 
 import android.app.Activity;
