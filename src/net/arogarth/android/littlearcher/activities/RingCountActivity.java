@@ -8,6 +8,7 @@ import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.activities.workout.DetailsActivity;
 import net.arogarth.android.littlearcher.activities.workout.ListActivity;
 import net.arogarth.android.littlearcher.activities.workout.PropertiesActivity;
+import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import net.arogarth.android.littlearcher.database.models.RingCount;
 
 import android.app.Activity;
@@ -33,8 +34,23 @@ public class RingCountActivity extends Activity implements Observer {
         setContentView(R.layout.passe);
 
         LayoutInflater li = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = li.inflate(R.layout.fita10, null);
-        ((ScrollView) findViewById(R.id.fitacontent)).addView(v);
+        
+        LinearLayout ll = new LinearLayout(getBaseContext());
+        ll.setOrientation(LinearLayout.VERTICAL);
+        
+        ll.addView(li.inflate(R.layout.fita_m, null));
+        
+        if(WorkoutManager.getInstance().getCurrentWorkout().getCountX()) {
+        	ll.addView(li.inflate(R.layout.fita_x, null));
+        }
+        
+        ll.addView(li.inflate(R.layout.fita_10_6, null));
+        
+        if(WorkoutManager.getInstance().getCurrentWorkout().getRings() == 10) {
+        	ll.addView(li.inflate(R.layout.fita_5_1, null));
+        }
+        
+        ((ScrollView) findViewById(R.id.fitacontent)).addView(ll);
         
         WorkoutManager.getInstance().addObserver(this);
     }
@@ -90,21 +106,31 @@ public class RingCountActivity extends Activity implements Observer {
 		((TextView) findViewById(R.id.ringSum)).setText(rc.getPoints().toString());
 		((TextView) findViewById(R.id.arrowSum)).setText(rc.getArrowCount().toString());
 		
-		LinearLayout tl = (LinearLayout) findViewById(R.id.ringList);
+		LinearLayout tl = (LinearLayout) findViewById(R.id.ringListM);
 
-		int i=0;
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getM().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getX().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing10().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing9().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing8().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing7().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing6().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing5().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing4().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing3().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing2().toString());
-		((TextView) tl.getChildAt( i++ ).findViewById(R.id.ring_count)).setText(rc.getRing1().toString());
+		
+		((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rc.getM().toString());
+		
+		if(WorkoutManager.getInstance().getCurrentWorkout().getCountX()) {
+			tl = (LinearLayout) findViewById(R.id.ringListX);
+			((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rc.getX().toString());
+		}
+		
+		tl = (LinearLayout) findViewById(R.id.ringList10_6);
+		((TextView) tl.getChildAt(0).findViewById(R.id.ring_count)).setText(rc.getRing10().toString());
+		((TextView) tl.getChildAt(1).findViewById(R.id.ring_count)).setText(rc.getRing9().toString());
+		((TextView) tl.getChildAt(2).findViewById(R.id.ring_count)).setText(rc.getRing8().toString());
+		((TextView) tl.getChildAt(3).findViewById(R.id.ring_count)).setText(rc.getRing7().toString());
+		((TextView) tl.getChildAt(4).findViewById(R.id.ring_count)).setText(rc.getRing6().toString());
+		
+		if(WorkoutManager.getInstance().getCurrentWorkout().getRings() == 10) {
+			tl = (LinearLayout) findViewById(R.id.ringList5_1);
+			((TextView) tl.getChildAt(0).findViewById(R.id.ring_count)).setText(rc.getRing5().toString());
+			((TextView) tl.getChildAt(1).findViewById(R.id.ring_count)).setText(rc.getRing4().toString());
+			((TextView) tl.getChildAt(2).findViewById(R.id.ring_count)).setText(rc.getRing3().toString());
+			((TextView) tl.getChildAt(3).findViewById(R.id.ring_count)).setText(rc.getRing2().toString());
+			((TextView) tl.getChildAt(4).findViewById(R.id.ring_count)).setText(rc.getRing1().toString());
+		}
 		
 	}
 }

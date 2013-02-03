@@ -291,4 +291,28 @@ public class RingHandler extends DatabaseHandler {
     	
     	return rings;
     }
+    
+    public Integer getArrows(Long workoutId) {
+    	Integer count = 6;
+    	
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	Cursor c = db.query(
+    			TABLE_NAME,
+    			new String[] {"COUNT(id)"},
+    			"workout_id =?",
+    			new String[] {workoutId.toString()},
+    			"passe",
+    			null,
+    			null);
+    	
+    	if(c.moveToFirst()) {
+    		count = c.getInt(0);
+    		
+    		if(count != 3 && count != 6) {
+    			count = 6;
+    		}
+    	}
+    	
+    	return count;
+    }
 }

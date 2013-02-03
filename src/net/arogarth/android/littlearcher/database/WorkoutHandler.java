@@ -4,11 +4,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
+import net.arogarth.android.littlearcher.database.models.Ring;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.RingtoneManager;
 
 public class WorkoutHandler extends DatabaseHandler {
 
@@ -31,8 +33,11 @@ public class WorkoutHandler extends DatabaseHandler {
 				"id INTEGER PRIMARY KEY, " +
 				"date TEXT, " +
 				"name TEXT, " +
-//				"place TEXT, " +
-				"description TEXT" +
+				"place TEXT, " +
+				"description TEXT," +
+				"count_x INTEGER," +
+				"rings INTEGER," +
+				"arrows INTEGER" +
 				")";
 
 		db.execSQL(ringCount);
@@ -43,12 +48,21 @@ public class WorkoutHandler extends DatabaseHandler {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		for (int i = oldVersion; i <= newVersion; i++)
         {
+			String sql = "";
             switch(i)
             {
             	case 2:
-		            String sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN place TEXT";
-		            db.execSQL(sql);
+//		            sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN place TEXT";
+//		            db.execSQL(sql);
 		            break;
+            	case 3:
+            		sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN count_x INTEGER;";
+    				db.execSQL(sql);
+    				sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN rings INTEGER;";
+    				db.execSQL(sql);
+    				sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN arrows INTEGER;";
+    				db.execSQL(sql);
+            		break;
             }
         }
 	}
@@ -61,6 +75,9 @@ public class WorkoutHandler extends DatabaseHandler {
 		values.put("name", workout.getName());
 		values.put("place", workout.getPlace());
 		values.put("description", workout.getDescription());
+		values.put("count_x", (workout.getCountX()?1:0));
+		values.put("rings", workout.getRings());
+		values.put("arrows", workout.getArrows());
 
 		if( workout.getId() == null ) {
 			long id = db.insert(TABLE_NAME, null, values);
@@ -91,7 +108,7 @@ public class WorkoutHandler extends DatabaseHandler {
     	 
         Cursor cursor = db.query(
         		TABLE_NAME,
-        		new String[]{"id", "date", "name", "description", "place"},
+        		new String[]{"id", "date", "name", "description", "place", "count_x", "rings", "arrows"},
         		where,
         		null, null, null, null);
         
@@ -112,7 +129,23 @@ public class WorkoutHandler extends DatabaseHandler {
 	        			cursor.getString(3));
 	        	row.setPlace(
 	        			cursor.getString(4));
+	        	row.setCountX(
+	        			cursor.getInt(5)!=0);
+	        	row.setRings(
+	        			cursor.getInt(6));
+	        	row.setArrows(
+	        			cursor.getInt(7));
 	        	
+	            if(row.getArrows() == 0) {
+	            	Integer count = RingHandler.getInstance().getArrows(row.getId());
+	            	
+	            	row.setRings(10);
+	            	row.setArrows(count);
+	            	row.setCountX(true);
+	            	
+	            	WorkoutHandler.getInstance().saveWorkout(row);
+	            }
+	            
 	        	stack.add(row);
 	        } while( cursor.moveToNext() );
         }
@@ -122,7 +155,7 @@ public class WorkoutHandler extends DatabaseHandler {
         return stack;
     }
 
-	public Workout loadLastWorkout() {
+	public Workout loadLastWorkout() throws Exception {
     	SQLiteDatabase db = this.getReadableDatabase();
     	 
         Cursor cursor = db.rawQuery(
@@ -138,14 +171,8 @@ public class WorkoutHandler extends DatabaseHandler {
 	        
 	        	result = stack.get(0);
         	} else {
-        		result = new Workout();
-        		result.setName(new Date().toLocaleString() );
-        		result.setDate(new Timestamp(new Date().getTime()));
-        		result.setName("");
-        		
-        		result = this.saveWorkout(result);
+        		throw new Exception("Cannot find last workout");
         	}
-        	
         }
         
         db.close();

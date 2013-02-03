@@ -27,4 +27,10 @@
     <string name="description">Beschreibung:</string>
 <!--     <string name="name">Name:</string> -->
     <string name="properties">Eigenschaften</string>
+    <string name="arrowcount">Pfeilezähler</string>
+    <string name="arrows">Pfeile</string>
+    <string name="rings">Auflage</string>
+    <string name="count_x">Werte X</string>
+    <string name="next">Weiter &gt;&gt;</string>
+    <string name="back">&lt;&lt; Zurück</string>
 </resources>

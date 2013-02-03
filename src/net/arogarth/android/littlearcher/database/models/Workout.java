@@ -8,6 +8,10 @@ public class Workout {
 	private String name;
 	private String description;
 	private String place;
+	private Integer arrows;
+	private Integer rings;
+	private Boolean countX;
+	
 	/**
 	 * @return the id
 	 */
@@ -67,5 +71,41 @@ public class Workout {
 	 */
 	public final void setPlace(String place) {
 		this.place = place;
+	}
+	/**
+	 * @return the arrows
+	 */
+	public final Integer getArrows() {
+		return arrows;
+	}
+	/**
+	 * @param arrows the arrows to set
+	 */
+	public final void setArrows(Integer arrows) {
+		this.arrows = arrows;
+	}
+	/**
+	 * @return the rings
+	 */
+	public final Integer getRings() {
+		return rings;
+	}
+	/**
+	 * @param rings the rings to set
+	 */
+	public final void setRings(Integer rings) {
+		this.rings = rings;
+	}
+	/**
+	 * @return the countX
+	 */
+	public final Boolean getCountX() {
+		return countX;
+	}
+	/**
+	 * @param countX the countX to set
+	 */
+	public final void setCountX(Boolean countX) {
+		this.countX = countX;
 	}
 }

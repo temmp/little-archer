@@ -27,5 +27,5 @@
         android:layout_height="wrap_content"
         android:onClick="arrowcounter"
         android:text="@string/arrowcount" />
-
+    
 </LinearLayout>
