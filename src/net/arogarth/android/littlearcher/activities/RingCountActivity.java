@@ -1,5 +1,6 @@
 package net.arogarth.android.littlearcher.activities;
 
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -7,7 +8,6 @@ import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.activities.workout.DetailsActivity;
 import net.arogarth.android.littlearcher.activities.workout.PropertiesActivity;
-import net.arogarth.android.littlearcher.database.models.RingCount;
 
 import android.app.Activity;
 import android.content.Context;
@@ -99,35 +99,52 @@ public class RingCountActivity extends Activity implements Observer {
     
 	@Override
 	public void update(Observable observable, Object data) {
-		RingCount rc = WorkoutManager.getInstance().getRingCount();
+		HashMap<String, Integer> rings = WorkoutManager.getInstance().getRings();
 		
-		((TextView) findViewById(R.id.ringSum)).setText(rc.getPoints().toString());
-		((TextView) findViewById(R.id.arrowSum)).setText(rc.getArrowCount().toString());
+		Integer arrows = 0;
+		Integer points = 0;
+		
+		for(String key : rings.keySet()) {
+			Integer _arrows = rings.get(key);
+			arrows += _arrows;
+			
+			if(key == "X") {
+				points += 10 * _arrows;
+			} else if(key == "M") {
+				// Do nothings
+			} else {
+				Integer value = Integer.parseInt(key);
+				points += value * _arrows;
+			}
+		}
+		
+		((TextView) findViewById(R.id.ringSum)).setText(points.toString());
+		((TextView) findViewById(R.id.arrowSum)).setText(arrows.toString());
 		
 		LinearLayout tl = (LinearLayout) findViewById(R.id.ringListM);
 
 		
-		((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rc.getM().toString());
+		((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rings.get("M").toString());
 		
 		if(WorkoutManager.getInstance().getCurrentWorkout().getCountX()) {
 			tl = (LinearLayout) findViewById(R.id.ringListX);
-			((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rc.getX().toString());
+			((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rings.get("X").toString());
 		}
 		
 		tl = (LinearLayout) findViewById(R.id.ringList10_6);
-		((TextView) tl.getChildAt(0).findViewById(R.id.ring_count)).setText(rc.getRing10().toString());
-		((TextView) tl.getChildAt(1).findViewById(R.id.ring_count)).setText(rc.getRing9().toString());
-		((TextView) tl.getChildAt(2).findViewById(R.id.ring_count)).setText(rc.getRing8().toString());
-		((TextView) tl.getChildAt(3).findViewById(R.id.ring_count)).setText(rc.getRing7().toString());
-		((TextView) tl.getChildAt(4).findViewById(R.id.ring_count)).setText(rc.getRing6().toString());
+		((TextView) tl.getChildAt(0).findViewById(R.id.ring_count)).setText(rings.get("10").toString());
+		((TextView) tl.getChildAt(1).findViewById(R.id.ring_count)).setText(rings.get("9").toString());
+		((TextView) tl.getChildAt(2).findViewById(R.id.ring_count)).setText(rings.get("8").toString());
+		((TextView) tl.getChildAt(3).findViewById(R.id.ring_count)).setText(rings.get("7").toString());
+		((TextView) tl.getChildAt(4).findViewById(R.id.ring_count)).setText(rings.get("6").toString());
 		
 		if(WorkoutManager.getInstance().getCurrentWorkout().getRings() == 10) {
 			tl = (LinearLayout) findViewById(R.id.ringList5_1);
-			((TextView) tl.getChildAt(0).findViewById(R.id.ring_count)).setText(rc.getRing5().toString());
-			((TextView) tl.getChildAt(1).findViewById(R.id.ring_count)).setText(rc.getRing4().toString());
-			((TextView) tl.getChildAt(2).findViewById(R.id.ring_count)).setText(rc.getRing3().toString());
-			((TextView) tl.getChildAt(3).findViewById(R.id.ring_count)).setText(rc.getRing2().toString());
-			((TextView) tl.getChildAt(4).findViewById(R.id.ring_count)).setText(rc.getRing1().toString());
+			((TextView) tl.getChildAt(0).findViewById(R.id.ring_count)).setText(rings.get("5").toString());
+			((TextView) tl.getChildAt(1).findViewById(R.id.ring_count)).setText(rings.get("4").toString());
+			((TextView) tl.getChildAt(2).findViewById(R.id.ring_count)).setText(rings.get("3").toString());
+			((TextView) tl.getChildAt(3).findViewById(R.id.ring_count)).setText(rings.get("2").toString());
+			((TextView) tl.getChildAt(4).findViewById(R.id.ring_count)).setText(rings.get("1").toString());
 		}
 		
 	}

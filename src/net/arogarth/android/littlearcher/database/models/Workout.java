@@ -2,14 +2,48 @@ package net.arogarth.android.littlearcher.database.models;
 
 import java.sql.Timestamp;
 
+/**
+ * Database model of workout
+ * 
+ * @author arogarth
+ *
+ */
 public class Workout {
 	private Long id;
+	
+	/**
+	 * timestamp when the workout startet
+	 */
 	private Timestamp date;
+	
+	/**
+	 * a name for the workout
+	 */
 	private String name;
+	
+	/**
+	 * a description
+	 */
 	private String description;
+	
+	/**
+	 * where was the workout
+	 */
 	private String place;
+	
+	/**
+	 * How many arrows will be shot in one passe
+	 */
 	private Integer arrows;
+	
+	/**
+	 * How many rings have the spot (5 or 10)
+	 */
 	private Integer rings;
+	
+	/**
+	 * Sould X be evaluatet
+	 */
 	private Boolean countX;
 	
 	/**

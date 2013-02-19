@@ -1,6 +1,6 @@
 package net.arogarth.android.littlearcher.database.models;
 
-public class Ring {
+public class Ring implements Comparable<Ring> {
 	private Long id;
 	private Long workoutId;
 	private Integer passe;
@@ -63,5 +63,28 @@ public class Ring {
 	 */
 	public final void setRing(String ring) {
 		this.ring = ring;
+	}
+
+	@Override
+	public int compareTo(Ring ring) {
+		if(ring.getRing().equalsIgnoreCase("M") || this.getRing().equalsIgnoreCase("X")) {
+			return -100;
+		}
+		
+		if(ring.getRing().equalsIgnoreCase("X") || this.getRing().equalsIgnoreCase("M")) {
+			return 100;
+		}
+		
+		Integer thiz = Integer.parseInt(this.getRing());
+		Integer argument = Integer.parseInt(ring.getRing());
+		
+		if(thiz > argument) {
+			return -1;
+		}
+		if(thiz < argument) {
+			return 1;
+		}
+		
+		return 0;
 	}
 }

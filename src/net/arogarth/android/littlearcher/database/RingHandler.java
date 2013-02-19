@@ -1,15 +1,15 @@
 package net.arogarth.android.littlearcher.database;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import net.arogarth.android.littlearcher.database.models.Ring;
-import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class RingHandler extends DatabaseHandler {
  
@@ -112,50 +112,6 @@ public class RingHandler extends DatabaseHandler {
     	return sumRings;
     }
     
-    public RingCount getSum(Long workoutId) {
-    	SQLiteDatabase db = this.getReadableDatabase();
-    	Cursor c = null;
-    	String sql = "";
-    	RingCount ring = new RingCount();
-    	
-		sql = String.format(
-			"SELECT " +
-			"ring AS ring, " +
-			"COUNT(ring) AS sum " +
-			"FROM %s " + 
-			"WHERE workout_id = %s " +
-			"GROUP BY ring " +
-			"ORDER BY ring ", TABLE_NAME, workoutId.toString());
-	
-		c = db.rawQuery(sql, null);
-		
-		if( c.moveToFirst() ) {
-			try {
-    			RingCount rc = new RingCount();
-    			
-    			String ringNumber = c.getString(0);
-    			Integer count = c.getInt(1);
-    			
-    			Class<?> clazz = rc.getClass();
-    			
-    			String methodName = "";
-    			if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
-    				methodName = ringNumber;
-    			else
-    				methodName = "Ring" + ringNumber;
-    			
-    			Method method = clazz.getMethod("set" + methodName, Integer.class);
-				method.invoke(ring, count);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-    		
-    	db.close();
-    	
-    	return ring;
-	}
-    
     public void delete(String where, String[] args) {
     	SQLiteDatabase db = this.getWritableDatabase();
     	db.delete(TABLE_NAME, where, args);
@@ -207,8 +163,7 @@ public class RingHandler extends DatabaseHandler {
 				"ring " +
 				"FROM %s " +
 				"WHERE workout_id = %s " +
-				"AND passe = %s " +
-				"AND ring IN ('X', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', 'M') ",
+				"AND passe = %s",
 				TABLE_NAME, workoutId.toString(), passe.toString());
     	
     	Cursor c = db.rawQuery(sql, null);
@@ -225,69 +180,8 @@ public class RingHandler extends DatabaseHandler {
     	}
     	
     	db.close();
-    	return rings;
-    }
-    
-    public ArrayList<RingCount> getRingCounts(Long workoutId) {
-    	SQLiteDatabase db = this.getReadableDatabase();
-    	String sql = "";
-    	ArrayList<RingCount> rings = new ArrayList<RingCount>();
     	
-		sql = String.format(
-				"SELECT passe FROM %s WHERE workout_id = %s ORDER BY passe",
-				RingHandler.getInstance().getTableName(),
-				workoutId.toString()
-				);
-		
-		Cursor passes = db.rawQuery(sql, null);
-		
-		if( passes.moveToFirst() ) {
-
-			do {
-				Integer passe = passes.getInt(0);
-				
-	    		sql = String.format(
-	    			"SELECT " +
-	    			"ring AS ring, " +
-	    			"COUNT(ring) AS sum " +
-					"FROM %s " +
-					"WHERE workout_id = %s " +
-					"AND passe = %s " +
-					"GROUP BY ring " +
-					"ORDER BY ring ", TABLE_NAME, workoutId.toString(), passe);
-	    	
-	    		Cursor c = db.rawQuery(sql, null);
-	    		
-	    		if( c.moveToFirst() ) {
-		    			try {
-			    			RingCount rc = new RingCount();
-			    			
-			    			String ringNumber = c.getString(0);
-			    			Integer count = c.getInt(1);
-			    			
-			    			Class<?> clazz = rc.getClass();
-			    			
-			    			String methodName = "";
-			    			if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
-			    				methodName = ringNumber;
-			    			else
-			    				methodName = "Ring" + ringNumber;
-			    			
-			    			Method method = clazz.getMethod("set" + methodName, Integer.class);
-		    				method.invoke(rc, count);
-		    				
-		    				rc.setRound(passe);
-		    				
-		    				rings.add(rc);
-		    			} catch (Exception e) {
-		    				e.printStackTrace();
-		    			}
-	    		}
-		    		
-		    	} while( passes.moveToNext() );
-		}
-		
-    	db.close();
+    	Collections.sort(rings);
     	
     	return rings;
     }

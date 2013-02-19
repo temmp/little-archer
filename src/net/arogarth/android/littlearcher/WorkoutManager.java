@@ -1,11 +1,10 @@
 package net.arogarth.android.littlearcher;
 
-import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Observable;
 
 import net.arogarth.android.littlearcher.database.RingHandler;
 import net.arogarth.android.littlearcher.database.models.Ring;
-import net.arogarth.android.littlearcher.database.models.RingCount;
 import net.arogarth.android.littlearcher.database.models.Workout;
 
 public class WorkoutManager extends Observable {
@@ -19,11 +18,28 @@ public class WorkoutManager extends Observable {
 	}
 	
 	private WorkoutManager() {
+		this.initRings();
 	}
 	
-	private RingCount rings = new RingCount();
+	private HashMap<String, Integer> rings = new HashMap<String, Integer>();
 	
 	private Workout currentWorkout;
+	
+	private void initRings() {
+		rings.clear();
+		rings.put("1", 0);
+		rings.put("2", 0);
+		rings.put("3", 0);
+		rings.put("4", 0);
+		rings.put("5", 0);
+		rings.put("6", 0);
+		rings.put("7", 0);
+		rings.put("8", 0);
+		rings.put("9", 0);
+		rings.put("10", 0);
+		rings.put("M", 0);
+		rings.put("X", 0);
+	}
 	
 	private Integer getNextRun() {
 		return RingHandler.getInstance().getNextRound(this.currentWorkout);
@@ -38,133 +54,68 @@ public class WorkoutManager extends Observable {
 	}
 	
 	public void increaseRing(String ringNumber) {
-		if( this.rings.getArrowCount() >= this.getCurrentWorkout().getArrows() )
+		if( this.getArrowCount() >= this.getCurrentWorkout().getArrows() ) {
 			return;
-		
-		Class<?> clazz = rings.getClass();
-		
-		String methodName = "";
-		if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
-			methodName = ringNumber;
-		else
-			methodName = "Ring" + ringNumber;
-		
-		Method method;
-		try {
-			method = clazz.getMethod("get" + methodName);
-			Integer count = (Integer) method.invoke(rings);
-			
-			count++;
-			
-			method = clazz.getMethod("set" + methodName, Integer.class);
-			method.invoke(rings, count);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
+		Integer value = this.rings.get(ringNumber);
+		value++;
+		this.rings.put(ringNumber, value);
 		
 		this.validate();
 	}
 	
 	public void decreaseRing(String ringNumber) {
-		Class<?> clazz = rings.getClass();
-		
-		String methodName = "";
-		if( ringNumber.equalsIgnoreCase("M") || ringNumber.equalsIgnoreCase("X") )
-			methodName = ringNumber;
-		else
-			methodName = "Ring" + ringNumber;
-		
-		Method method;
-		try {
-			method = clazz.getMethod("get" + methodName);
-			Integer count = (Integer) method.invoke(rings);
-			
-			if( count > 0 )
-				count--;
-			
-			method = clazz.getMethod("set" + methodName, Integer.class);
-			method.invoke(rings, count);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Integer value = this.rings.get(ringNumber);
+		if(value <= 0) {
+			return;
 		}
+		
+		value--;
+		this.rings.put(ringNumber, value);
 		
 		this.validate();
 	}
 	
-	public Integer getRingCount(String index) {
-		Class<?> clazz = rings.getClass();
-		
-		String methodName = "";
-		if( index.equalsIgnoreCase("M") || index.equalsIgnoreCase("X") )
-			methodName = index;
-		else
-			methodName = "Ring" + index;
-		
-		Integer count = 0;
-		Method method;
-		try {
-			method = clazz.getMethod("get" + methodName);
-			count = (Integer) method.invoke(rings);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public Integer getArrowCount() {
+		Integer i = 0;
+		for(String key : this.rings.keySet()) {
+			i += this.rings.get(key);
 		}
 		
-		return count;
-	}
-	
-	public RingCount getRingCount() {
-		return this.rings;
+		return i;
 	}
 	
 	public void save() {
 		int max = this.getCurrentWorkout().getArrows();
 		
-		for(int i = this.rings.getArrowCount(); i < max; i++) {
-			this.rings.setM(this.rings.getM() + 1);
+		if(this.getArrowCount() < max) {
+			Integer i = this.rings.get("M");
+			i += max - this.getArrowCount();
+			this.rings.put("M", i);
 		}
 		
 		Integer passe = this.getNextRun();
 		Long workoutId = this.getCurrentWorkout().getId();
 		
-		for(int i=0; i < this.rings.getX(); i++) {
-			Ring ring = new Ring("X", passe, workoutId);
-			RingHandler.getInstance().addRing(ring);
-		}
-		
-		for(Integer j=10; j>0; j--) {
-			try {
-				Class<?> clazz = rings.getClass();
-				
-				String methodName = "getRing" + j;
-				
-				Method method = clazz.getMethod(methodName);
-				Integer count = (Integer) method.invoke(rings);
-				
-				for(int i=0; i < count; i++) {
-					Ring ring = new Ring(j.toString(), passe, workoutId);
-					RingHandler.getInstance().addRing(ring);
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		for(String key : this.rings.keySet()) {
+			for(int i = 0; i < this.rings.get(key); i++) {
+				Ring ring = new Ring(key, passe, workoutId);
+				RingHandler.getInstance().addRing(ring);
 			}
-		}
-		
-		for(int i=0; i < this.rings.getM(); i++) {
-			Ring ring = new Ring("M", passe, workoutId);
-			RingHandler.getInstance().addRing(ring);
 		}
 		
 		this.reset();
 	}
 	
 	public void reset() {
-		rings = new RingCount();
+		this.initRings();
 		
 		this.validate();
+	}
+	
+	public HashMap<String, Integer> getRings() {
+		return this.rings;
 	}
 	
 	private void validate() {
