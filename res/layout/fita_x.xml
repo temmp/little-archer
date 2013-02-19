@@ -4,10 +4,11 @@
     android:id="@+id/ringListX"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
     android:orientation="vertical" >
 
     <net.arogarth.android.littlearcher.views.FitaRow
+    	android:background="#ffffff"
+    	android:layout_marginBottom="2pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:ring="X" />

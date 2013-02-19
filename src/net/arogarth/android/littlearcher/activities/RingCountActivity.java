@@ -36,8 +36,6 @@ public class RingCountActivity extends Activity implements Observer {
         LinearLayout ll = new LinearLayout(getBaseContext());
         ll.setOrientation(LinearLayout.VERTICAL);
         
-        ll.addView(li.inflate(R.layout.fita_m, null));
-        
         if(WorkoutManager.getInstance().getCurrentWorkout().getCountX()) {
         	ll.addView(li.inflate(R.layout.fita_x, null));
         }
@@ -47,6 +45,8 @@ public class RingCountActivity extends Activity implements Observer {
         if(WorkoutManager.getInstance().getCurrentWorkout().getRings() == 10) {
         	ll.addView(li.inflate(R.layout.fita_5_1, null));
         }
+
+        ll.addView(li.inflate(R.layout.fita_m, null));
         
         ((ScrollView) findViewById(R.id.fitacontent)).addView(ll);
         

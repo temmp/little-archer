@@ -3,8 +3,8 @@
     <color name="gold_ring">#FFFF00</color>
     <color name="red_ring">#FF0000</color>
     <color name="blue_ring">#0000FF</color>
-    <color name="black_ring">#2B2B2B</color>
-    <color name="white_ring">#D9D9D9</color>
+    <color name="black_ring">#000000</color>
+    <color name="white_ring">#FFFFFF</color>
 <!--     <color name="gold_ring">#FFFF4D</color> -->
 <!--     <color name="red_ring">#FF1F1F</color> -->
 <!--     <color name="blue_ring">#3D3DFF</color> -->
