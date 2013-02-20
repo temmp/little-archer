@@ -1,5 +1,21 @@
 package net.arogarth.android.littlearcher.database.models;
 
+/**
+ * Represent a ring on the target
+ * 
+ * each ring is belongs to a workout and to a one pass
+ * 
+ * the ring Property can have one of the following value:
+ * - X => extra (count as 10 but with mor weight)
+ * - 1..10 => ring point
+ * - M => missing (0 points)
+ *
+ * Compareable rule:
+ * X > 10 > ... 1 > M
+ * 
+ * @author arogarth
+ *
+ */
 public class Ring implements Comparable<Ring> {
 	private Long id;
 	private Long workoutId;
@@ -65,14 +81,25 @@ public class Ring implements Comparable<Ring> {
 		this.ring = ring;
 	}
 
+	/**
+	 * compare this ring to another ring
+	 * 
+	 * if this ring is M or the the other ring is an X return -1
+	 * if this ring is M or the the other ring is an X return +1
+	 * if this ring is greater than the other return -1 otherwise return +1
+	 * 
+	 * as default the rings are equal and return 0
+	 * 
+	 * @return int
+	 */
 	@Override
 	public int compareTo(Ring ring) {
 		if(ring.getRing().equalsIgnoreCase("M") || this.getRing().equalsIgnoreCase("X")) {
-			return -100;
+			return -1;
 		}
 		
 		if(ring.getRing().equalsIgnoreCase("X") || this.getRing().equalsIgnoreCase("M")) {
-			return 100;
+			return 1;
 		}
 		
 		Integer thiz = Integer.parseInt(this.getRing());
