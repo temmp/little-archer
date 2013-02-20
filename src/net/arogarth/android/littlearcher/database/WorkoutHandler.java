@@ -49,8 +49,8 @@ public class WorkoutHandler extends DatabaseHandler {
             switch(i)
             {
             	case 2:
-//		            sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN place TEXT";
-//		            db.execSQL(sql);
+		            sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN place TEXT";
+		            db.execSQL(sql);
 		            break;
             	case 3:
             		sql = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN count_x INTEGER;";
