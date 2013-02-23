@@ -8,62 +8,117 @@
         android:id="@+id/fitacontent"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="50dip" >
+        android:layout_marginBottom="55dip" >
         
     </ScrollView>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-50dip"
+        android:layout_marginTop="-55dip"
         android:gravity="bottom" >
-
+	    
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <Button
-                android:onClick="cancle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reset" />
+            <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.5"
+	            android:orientation="vertical" >
+	        
+<!-- 		        <LinearLayout -->
+<!-- 		            android:layout_height="wrap_content" -->
+<!-- 		            android:layout_width="fill_parent" -->
+<!-- 		            android:orientation="horizontal" > -->
+		            
+<!-- 		            <TextView -->
+<!-- 		                android:layout_width="wrap_content" -->
+<!-- 		                android:layout_height="wrap_content" -->
+<!-- 		                android:textAppearance="?android:attr/textAppearanceLarge" -->
+<!-- 		                android:text="E = " -->
+<!-- 		                /> -->
+		            
+<!-- 		            <TextView -->
+<!-- 		                android:id="@+id/ringSum" -->
+<!-- 		                android:layout_width="wrap_content" -->
+<!-- 		                android:layout_height="wrap_content" -->
+<!-- 		                android:textAppearance="?android:attr/textAppearanceLarge" -->
+<!-- 		                android:text="0" -->
+<!-- 		                /> -->
+		            
+<!-- 		            <TextView -->
+<!-- 		                android:layout_width="wrap_content" -->
+<!-- 		                android:layout_height="wrap_content" -->
+<!-- 		                android:textAppearance="?android:attr/textAppearanceLarge" -->
+<!-- 		                android:text=" - P = " -->
+<!-- 		                /> -->
+		            
+<!-- 		            <TextView -->
+<!-- 		                android:id="@+id/arrowSum" -->
+<!-- 		                android:layout_width="wrap_content" -->
+<!-- 		                android:layout_height="wrap_content" -->
+<!-- 		                android:textAppearance="?android:attr/textAppearanceLarge" -->
+<!-- 		                android:text="0" -->
+<!-- 		                /> -->
+		            
+<!-- 		        </LinearLayout> -->
+		        
+		   		<LinearLayout
+		            android:layout_height="wrap_content"
+		            android:layout_width="fill_parent"
+		            android:orientation="horizontal" >
+		            
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textAppearance="?android:attr/textAppearanceLarge"
+		                android:paddingRight="2pt"
+		                android:text="@string/sum_arrows"
+		                />
+		            
+		            <TextView
+		                android:id="@+id/totalArrows"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textAppearance="?android:attr/textAppearanceLarge"
+		                />
+		        
+		        </LinearLayout>
+		        
+		   		<LinearLayout
+		            android:layout_height="wrap_content"
+		            android:layout_width="fill_parent"
+		            android:orientation="horizontal" >
+		            
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textAppearance="?android:attr/textAppearanceLarge"
+		                android:paddingRight="2pt"
+		                android:text="@string/sum_rings"
+		                />
+		            
+		            <TextView
+		                android:id="@+id/totalRings"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textAppearance="?android:attr/textAppearanceLarge"
+		                />
+		        
+		        </LinearLayout>
+		        
+	        </LinearLayout>
 
+            
             <Button
                 android:onClick="save"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/save" />
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="E = "
-                />
-            
-            <TextView
-                android:id="@+id/ringSum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="0"
-                />
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text=" - P = "
-                />
-            
-            <TextView
-                android:id="@+id/arrowSum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="0"
-                />
+                android:layout_weight="0.5"
+                android:text="@string/next" />
             
         </LinearLayout>
         

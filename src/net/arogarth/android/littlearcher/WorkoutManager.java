@@ -1,7 +1,13 @@
 package net.arogarth.android.littlearcher;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.view.View;
+import android.widget.TextView;
 
 import net.arogarth.android.littlearcher.database.RingHandler;
 import net.arogarth.android.littlearcher.database.models.Ring;
@@ -84,6 +90,58 @@ public class WorkoutManager extends Observable {
 		}
 		
 		return i;
+	}
+	
+	public Integer getTotalArrows() {
+		Integer totalArrows = 0;
+		
+		String sql = String.format("SELECT COUNT(id) FROM %s WHERE workout_id = %s",
+						RingHandler.getInstance().getTableName(),
+						this.getCurrentWorkout().getId().toString());
+		
+		SQLiteDatabase db = RingHandler.getInstance().getReadableDatabase();
+		Cursor c = db.rawQuery(sql, null);
+		if( c.moveToFirst() ) {
+			totalArrows = c.getInt(0);
+		}
+		
+		db.close();
+		
+		return totalArrows;
+	}
+	
+	public Integer getTotalRings() {
+		Integer totalRings = 0;
+		SQLiteDatabase db = RingHandler.getInstance().getReadableDatabase();
+		
+		String sql = String.format(
+				"SELECT passe FROM %s WHERE workout_id = %s GROUP BY passe ORDER BY passe",
+				RingHandler.getInstance().getTableName(),
+				this.getCurrentWorkout().getId().toString()
+				);
+		
+		Cursor c = db.rawQuery(sql, null);
+		
+		if( c.moveToFirst() ) {
+			do {
+				Integer passe = c.getInt(0);
+				ArrayList<Ring> rings = RingHandler.getInstance().loadRings(this.getCurrentWorkout().getId(), passe);
+				
+				for(Ring r : rings) {
+					if(r.getRing().equalsIgnoreCase("X")) {
+						totalRings +=10;
+					} else if(r.getRing().equalsIgnoreCase("M")) {
+						totalRings += 0;
+					} else {
+						totalRings += Integer.parseInt(r.getRing());
+					}
+				}
+			} while( c.moveToNext() );
+		}
+		
+		db.close();
+		
+		return totalRings;
 	}
 	
 	public void save() {

@@ -13,11 +13,11 @@
     <string name="sum_tens_and_x">Zehner + X: </string>
 <!--     <string name="sum_x">X: </string> -->
 <!--     <string name="sum_m">M: </string> -->
-    <string name="sum_arrows">Pfeile: </string>
     <string name="sum">Summe</string>
     <string name="carry">Übertrag</string>
     <string name="date">Datum: </string>
     <string name="time">Zeit: </string>
+    <string name="sum_arrows">Pfeile: </string>
     <string name="sum_rings">Ringe: </string>
 <!--     <string name="number_one">1</string> -->
 <!--     <string name="number_two">2</string> -->

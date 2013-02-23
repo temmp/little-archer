@@ -8,10 +8,13 @@ import net.arogarth.android.littlearcher.R;
 import net.arogarth.android.littlearcher.WorkoutManager;
 import net.arogarth.android.littlearcher.activities.workout.DetailsActivity;
 import net.arogarth.android.littlearcher.activities.workout.PropertiesActivity;
+import net.arogarth.android.littlearcher.database.RingHandler;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,11 +49,13 @@ public class RingCountActivity extends Activity implements Observer {
         	ll.addView(li.inflate(R.layout.fita_5_1, null));
         }
 
-        ll.addView(li.inflate(R.layout.fita_m, null));
+//        ll.addView(li.inflate(R.layout.fita_m, null));
         
         ((ScrollView) findViewById(R.id.fitacontent)).addView(ll);
         
         WorkoutManager.getInstance().addObserver(this);
+        
+        this.setTotals();
     }
     
     @Override
@@ -81,6 +86,7 @@ public class RingCountActivity extends Activity implements Observer {
     
     public void save(View button) {
     	WorkoutManager.getInstance().save();
+    	this.setTotals();
     }
     
     public void cancle(View button) {
@@ -118,13 +124,12 @@ public class RingCountActivity extends Activity implements Observer {
 			}
 		}
 		
-		((TextView) findViewById(R.id.ringSum)).setText(points.toString());
-		((TextView) findViewById(R.id.arrowSum)).setText(arrows.toString());
+//		((TextView) findViewById(R.id.ringSum)).setText(points.toString());
+//		((TextView) findViewById(R.id.arrowSum)).setText(arrows.toString());
 		
 		LinearLayout tl = (LinearLayout) findViewById(R.id.ringListM);
 
-		
-		((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rings.get("M").toString());
+//		((TextView) tl.getChildAt( 0 ).findViewById(R.id.ring_count)).setText(rings.get("M").toString());
 		
 		if(WorkoutManager.getInstance().getCurrentWorkout().getCountX()) {
 			tl = (LinearLayout) findViewById(R.id.ringListX);
@@ -146,6 +151,13 @@ public class RingCountActivity extends Activity implements Observer {
 			((TextView) tl.getChildAt(3).findViewById(R.id.ring_count)).setText(rings.get("2").toString());
 			((TextView) tl.getChildAt(4).findViewById(R.id.ring_count)).setText(rings.get("1").toString());
 		}
+	}
+	
+	private void setTotals() {
+		String totalArrows = String.format("%04d", WorkoutManager.getInstance().getTotalArrows());
+		((TextView) findViewById(R.id.totalArrows)).setText(totalArrows);
 		
+		String totalRings = String.format("%04d", WorkoutManager.getInstance().getTotalRings());
+		((TextView) findViewById(R.id.totalRings)).setText(totalRings);
 	}
 }

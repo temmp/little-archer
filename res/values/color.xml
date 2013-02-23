@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="gold_ring">#FFFF00</color>
-    <color name="red_ring">#FF0000</color>
-    <color name="blue_ring">#0000FF</color>
+    <color name="gold_ring">#999900</color>
+    <color name="red_ring">#990000</color>
+    <color name="blue_ring">#000099</color>
     <color name="black_ring">#000000</color>
-    <color name="white_ring">#FFFFFF</color>
+    <color name="white_ring">#999999</color>
 <!--     <color name="gold_ring">#FFFF4D</color> -->
 <!--     <color name="red_ring">#FF1F1F</color> -->
 <!--     <color name="blue_ring">#3D3DFF</color> -->

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arrows">
+<!-- 		<item>Free</item> -->
+		<item>3 Pfeile</item>
+		<item>6 Pfeile</item>
+	</string-array>
+	<string-array name="rings">
+		<item>5 Ringe (3 Spots)</item>
+		<item>10 Ringe</item>
+	</string-array>
+</resources>
