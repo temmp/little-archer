@@ -9,4 +9,9 @@
 		<item>5 Rings (3 Spots)</item>
 		<item>10 Rings</item>
 	</string-array>
+	<string-array name="workout_list_properties">
+	    <item>Properties</item>
+	    <item>Resume</item>
+	    <item>Delete</item>
+	</string-array>
 </resources>

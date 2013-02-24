@@ -9,6 +9,7 @@
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
+    <string name="select">Select</string>
     <string name="sum_tens_and_x">Ten\'s + X: </string>
     <string name="sum_x">X: </string>
     <string name="sum_m">M: </string>

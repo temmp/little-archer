@@ -9,7 +9,8 @@
     <string name="workout_results">Ergebnisse</string>
     <string name="cancel">Abbrechen</string>
 <!--     <string name="reset">Reset</string> -->
-<!--     <string name="save">Speichern</string> -->
+    <string name="save">Speichern</string>
+    <string name="select">Wähle</string>
     <string name="sum_tens_and_x">Zehner + X: </string>
 <!--     <string name="sum_x">X: </string> -->
 <!--     <string name="sum_m">M: </string> -->

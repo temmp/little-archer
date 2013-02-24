@@ -94,11 +94,11 @@ public class ListActivity extends Activity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, final long id) {
-			
-			final CharSequence[] items = {"Properties","Resume", "Delete"};
+			String title = getResources().getString(R.string.select);
+			String[] items = getResources().getStringArray(R.array.workout_list_properties);
 			
 	        AlertDialog.Builder builder = new AlertDialog.Builder(ListWorkoutAdapter.this.list.getContext());
-	        builder.setTitle("Select");
+	        builder.setTitle(title);
 	        builder.setItems(items, new DialogInterface.OnClickListener(){
 	            public void onClick(DialogInterface dialogInterface, int item) {
 	            	int i = 0;

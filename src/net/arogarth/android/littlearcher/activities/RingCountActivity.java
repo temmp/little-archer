@@ -84,13 +84,9 @@ public class RingCountActivity extends Activity implements Observer {
     	return super.onOptionsItemSelected(item);
     }
     
-    public void save(View button) {
+    public void next(View button) {
     	WorkoutManager.getInstance().save();
     	this.setTotals();
-    }
-    
-    public void cancle(View button) {
-    	WorkoutManager.getInstance().reset();
     }
     
     public void decreaseRing(View button) {
