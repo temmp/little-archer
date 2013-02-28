@@ -1,7 +1,10 @@
 package net.arogarth.android.littlearcher;
 
+import net.arogarth.android.littlearcher.database.RingHandler;
+import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 public class LittleArcher extends Application {
 
@@ -12,6 +15,10 @@ public class LittleArcher extends Application {
 		super.onCreate();
 		
 		instance = this;
+		
+		Log.d("LA", "Create database structure");
+		WorkoutHandler.getInstance();
+		RingHandler.getInstance();
 	}
 
 	public static Context getContext() {

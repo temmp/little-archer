@@ -33,4 +33,6 @@
     <string name="count_x">Count X</string>
     <string name="next">Next &gt;&gt;</string>
     <string name="back">&lt;&lt; Back</string>
+    <string name="lockScreen">Lock Screen</string>
+    <string name="new_backup">New Backup</string>
 </resources>

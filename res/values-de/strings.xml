@@ -34,4 +34,5 @@
     <string name="count_x">Werte X</string>
     <string name="next">Weiter &gt;&gt;</string>
     <string name="back">&lt;&lt; Zurück</string>
+    <string name="new_backup">Neues Backup erstellen</string>
 </resources>
