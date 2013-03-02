@@ -192,7 +192,7 @@ public class DatabaseBackupHelper {
 		File sd = Environment.getExternalStorageDirectory();
 		
 		if (sd.canWrite()) {
-			String timestamp = DateFormat.format("yyyyMMddhhmmss", Calendar.getInstance()).toString();
+			String timestamp = DateFormat.format("yyyyMMddkkmmss", Calendar.getInstance()).toString();
 					
 			String file = this.getBackupFolder() +  timestamp + ".zip";
 			

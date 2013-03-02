@@ -14,4 +14,8 @@
 	    <item>Resume</item>
 	    <item>Delete</item>
 	</string-array>
+	<string-array name="backup_list_properties">
+	    <item>Restore</item>
+	    <item>Delete</item>
+	</string-array>
 </resources>

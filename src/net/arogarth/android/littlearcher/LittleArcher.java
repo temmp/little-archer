@@ -1,9 +1,12 @@
 package net.arogarth.android.littlearcher;
 
+import java.util.Calendar;
+
 import net.arogarth.android.littlearcher.database.RingHandler;
 import net.arogarth.android.littlearcher.database.WorkoutHandler;
 import android.app.Application;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 public class LittleArcher extends Application {

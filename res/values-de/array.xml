@@ -11,7 +11,11 @@
 	</string-array>
 	<string-array name="workout_list_properties">
 	    <item>Eigenschaften</item>
-	    <item>Wie­der­auf­neh­men</item>
+	    <item>Fortführen</item>
+	    <item>Löschen</item>
+	</string-array>
+	<string-array name="backup_list_properties">
+	    <item>Wiederherstellen</item>
 	    <item>Löschen</item>
 	</string-array>
 </resources>

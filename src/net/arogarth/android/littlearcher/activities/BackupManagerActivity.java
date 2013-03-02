@@ -83,9 +83,8 @@ public class BackupManagerActivity extends Activity {
 
 			try {
 				String date = f.getName().toLowerCase().replace(".zip", "");
-				SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
-				Date d = format.parse(date);
-				date = DateFormat.format("dd.MM.yyyy hh:mm:ss", d).toString();
+				Date d = new SimpleDateFormat("yyyyMMddkkmmss").parse(date);
+				date = java.text.DateFormat.getDateTimeInstance().format(d);
 				
 				((TextView) v.findViewById(R.id.date)).setText(date);
 			} catch (ParseException e) {
@@ -102,8 +101,8 @@ public class BackupManagerActivity extends Activity {
 				final int arg2, long arg3) {
 
 
-			String title = "Select";
-			String[] items = { "Restore" };
+			String title = getResources().getString(R.string.select);
+			String[] items = getResources().getStringArray(R.array.backup_list_properties);
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					ListBackupAdapter.this.context);
@@ -129,6 +128,19 @@ public class BackupManagerActivity extends Activity {
 									Toast.LENGTH_LONG).show();
 							e.printStackTrace();
 						}
+					} else if (item == i++) {
+						File f = ListBackupAdapter.this.getItem(arg2);
+						if(f.delete()) {
+							Toast.makeText(getApplicationContext(),
+									"File deleted!",
+									Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(getApplicationContext(),
+									"Cannot delete file...!!",
+									Toast.LENGTH_LONG).show();
+						}
+
+						notifyDataSetChanged();
 					}
 
 					return;
